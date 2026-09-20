@@ -1,0 +1,12 @@
+services:
+  yemek-planlayici:
+    build: .
+    image: yemek-planlayici:latest
+    container_name: yemek-planlayici
+    restart: unless-stopped
+    ports:
+      - "3456:3000"
+    environment:
+      TZ: Europe/Istanbul
+    volumes:
+      - ./data:/data

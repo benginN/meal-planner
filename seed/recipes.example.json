@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Mercimek Çorbası",
+    "name_en": "Red Lentil Soup",
+    "name_de": "Rote-Linsen-Suppe",
+    "category": "Çorba",
+    "base_servings": 4,
+    "duration_min": 35,
+    "tags": ["vejetaryen"],
+    "kcal": 230, "protein_g": 12, "carbs_g": 34, "fat_g": 5,
+    "instructions": "1. Soğanı ve havucu doğrayıp tereyağında 5 dakika kavurun.\n2. Yıkanmış mercimeği ve suyu ekleyin, kaynayınca kısık ateşte 25 dakika pişirin.\n3. Blenderdan geçirin, tuz ve kimyonla tatlandırın.\n4. Limon sıkarak servis edin.",
+    "instructions_en": "1. Chop the onion and carrot and soften them in the butter for 5 minutes.\n2. Add the rinsed lentils and the water, bring to the boil, then simmer for 25 minutes.\n3. Blend until smooth and season with salt and cumin.\n4. Serve with a squeeze of lemon.",
+    "instructions_de": "1. Zwiebel und Karotte würfeln und 5 Minuten in der Butter andünsten.\n2. Die gewaschenen Linsen und das Wasser zugeben, aufkochen und 25 Minuten köcheln lassen.\n3. Fein pürieren und mit Salz und Kreuzkümmel abschmecken.\n4. Mit einem Spritzer Zitrone servieren.",
+    "ingredients": [
+      { "name": "kırmızı mercimek", "name_en": "red lentils", "name_de": "rote Linsen", "amount": 250, "unit": "g", "category": "Bakliyat, Tahıl & Makarna" },
+      { "name": "soğan", "name_en": "onion", "name_de": "Zwiebel", "amount": 1, "unit": "adet", "category": "Sebze & Meyve" },
+      { "name": "havuç", "name_en": "carrots", "name_de": "Karotten", "amount": 1, "unit": "adet", "category": "Sebze & Meyve" },
+      { "name": "tereyağı", "name_en": "butter", "name_de": "Butter", "amount": 30, "unit": "g", "category": "Süt Ürünleri & Yumurta" },
+      { "name": "su", "name_en": "water", "name_de": "Wasser", "amount": 1.5, "unit": "l", "category": "Yağ & Temel Malzeme", "staple": true },
+      { "name": "limon", "name_en": "lemon", "name_de": "Zitrone", "amount": 0.5, "unit": "adet", "category": "Sebze & Meyve" },
+      { "name": "kimyon", "name_en": "ground cumin", "name_de": "gemahlener Kreuzkümmel", "amount": 1, "unit": "çay kaşığı", "category": "Baharat", "staple": true },
+      { "name": "tuz", "name_en": "salt", "name_de": "Salz", "category": "Yağ & Temel Malzeme", "staple": true }
+    ]
+  },
+  {
+    "name": "Fırında Sebzeli Tavuk",
+    "name_en": "Tray-Baked Chicken and Vegetables",
+    "name_de": "Hähnchen mit Ofengemüse",
+    "category": "Ana Yemek",
+    "base_servings": 2,
+    "duration_min": 50,
+    "tags": ["tavuk"],
+    "kcal": 520, "protein_g": 42, "carbs_g": 38, "fat_g": 20,
+    "instructions": "1. Fırını 200 °C'ye ısıtın.\n2. Patatesi, havucu ve soğanı iri doğrayıp tepsiye yayın; zeytinyağı, tuz ve kekikle karıştırın.\n3. Tavuk butları sebzelerin üzerine yerleştirin, ezilmiş sarımsağı ekleyin.\n4. 40 dakika, tavuklar kızarana kadar pişirin.",
+    "instructions_en": "1. Heat the oven to 200 °C.\n2. Cut the potatoes, carrots and onion into chunks, spread them on a tray and toss with the olive oil, salt and thyme.\n3. Sit the chicken thighs on top and add the crushed garlic.\n4. Roast for 40 minutes until the chicken is golden.",
+    "instructions_de": "1. Den Ofen auf 200 °C vorheizen.\n2. Kartoffeln, Karotten und Zwiebel grob schneiden, auf einem Blech verteilen und mit Olivenöl, Salz und Thymian mischen.\n3. Die Hähnchenschenkel daraufsetzen und den zerdrückten Knoblauch zugeben.\n4. 40 Minuten backen, bis das Hähnchen goldbraun ist.",
+    "ingredients": [
+      { "name": "tavuk but", "name_en": "chicken thighs", "name_de": "Hähnchenschenkel", "amount": 4, "unit": "adet", "category": "Et, Tavuk & Balık" },
+      { "name": "patates", "name_en": "potatoes", "name_de": "Kartoffeln", "amount": 400, "unit": "g", "category": "Sebze & Meyve" },
+      { "name": "havuç", "name_en": "carrots", "name_de": "Karotten", "amount": 2, "unit": "adet", "category": "Sebze & Meyve" },
+      { "name": "soğan", "name_en": "onion", "name_de": "Zwiebel", "amount": 1, "unit": "adet", "category": "Sebze & Meyve" },
+      { "name": "sarımsak", "name_en": "garlic", "name_de": "Knoblauch", "amount": 3, "unit": "diş", "category": "Sebze & Meyve" },
+      { "name": "zeytinyağı", "name_en": "olive oil", "name_de": "Olivenöl", "amount": 2, "unit": "yemek kaşığı", "category": "Yağ & Temel Malzeme", "staple": true },
+      { "name": "kekik", "name_en": "dried thyme", "name_de": "Thymian", "amount": 1, "unit": "çay kaşığı", "category": "Baharat", "staple": true },
+      { "name": "tuz", "name_en": "salt", "name_de": "Salz", "category": "Yağ & Temel Malzeme", "staple": true }
+    ]
+  },
+  {
+    "name": "Domatesli Makarna",
+    "name_en": "Tomato Pasta",
+    "name_de": "Tomaten-Pasta",
+    "category": "Makarna & Pilav",
+    "base_servings": 2,
+    "duration_min": 20,
+    "tags": ["vejetaryen", "pratik"],
+    "kcal": 480, "protein_g": 16, "carbs_g": 78, "fat_g": 11,
+    "instructions": "1. Makarnayı tuzlu suda paketteki süre kadar haşlayın.\n2. Sarımsağı zeytinyağında 1 dakika çevirin, doğranmış domatesi ekleyip 10 dakika pişirin.\n3. Süzdüğünüz makarnayı sosa katıp karıştırın.\n4. Rendelenmiş parmesan ve fesleğenle servis edin.",
+    "instructions_en": "1. Cook the pasta in salted water according to the packet.\n2. Fry the garlic in the olive oil for 1 minute, add the chopped tomatoes and simmer for 10 minutes.\n3. Drain the pasta and toss it through the sauce.\n4. Serve with grated Parmesan and basil.",
+    "instructions_de": "1. Die Nudeln in Salzwasser nach Packungsanweisung kochen.\n2. Den Knoblauch 1 Minute im Olivenöl anbraten, die gehackten Tomaten zugeben und 10 Minuten köcheln lassen.\n3. Die Nudeln abgießen und mit der Sauce mischen.\n4. Mit geriebenem Parmesan und Basilikum servieren.",
+    "ingredients": [
+      { "name": "makarna", "name_en": "pasta", "name_de": "Nudeln", "amount": 200, "unit": "g", "category": "Bakliyat, Tahıl & Makarna" },
+      { "name": "doğranmış domates (konserve)", "name_en": "chopped tomatoes (tinned)", "name_de": "gehackte Tomaten", "amount": 400, "unit": "g", "category": "Konserve, Salça & Sos" },
+      { "name": "sarımsak", "name_en": "garlic", "name_de": "Knoblauch", "amount": 2, "unit": "diş", "category": "Sebze & Meyve" },
+      { "name": "parmesan", "name_en": "Parmesan", "name_de": "Parmesan", "amount": 30, "unit": "g", "category": "Süt Ürünleri & Yumurta" },
+      { "name": "taze fesleğen", "name_en": "fresh basil", "name_de": "Basilikum", "amount": 0.5, "unit": "demet", "note": "isteğe bağlı", "note_en": "optional", "note_de": "optional", "category": "Sebze & Meyve" },
+      { "name": "zeytinyağı", "name_en": "olive oil", "name_de": "Olivenöl", "amount": 1, "unit": "yemek kaşığı", "category": "Yağ & Temel Malzeme", "staple": true },
+      { "name": "tuz", "name_en": "salt", "name_de": "Salz", "category": "Yağ & Temel Malzeme", "staple": true }
+    ]
+  }
+]
