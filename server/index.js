@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
+import { compress } from 'hono/compress';
 import { fileURLToPath } from 'node:url';
 import { db, transaction } from './db.js';
 import {
@@ -14,6 +15,10 @@ loadSeed(fileURLToPath(new URL('../seed/recipes.json', import.meta.url)));
 const app = new Hono();
 const api = new Hono();
 
+// The bundle and the recipe list are a few hundred kB of text; compressed they travel ~70% lighter,
+// which matters on a phone over a VPN.
+app.use(compress());
+
 api.onError((err, c) => {
   const conflict = /UNIQUE/.test(err.message);
   if (!conflict) console.error(err);
@@ -24,7 +29,7 @@ const WEEK_RE = /^\d{4}-\d{2}-\d{2}$/;
 function scope(c, src) {
   const profileId = Number(src.profile ?? src.profile_id);
   const week = String(src.week ?? src.week_start ?? '');
-  if (!profileId || !WEEK_RE.test(week)) throw new Error('profile ve week gerekli');
+  if (!profileId || !WEEK_RE.test(week)) throw new Error('profile and week are required');
   return { profileId, week };
 }
 
@@ -224,8 +229,39 @@ api.get('/glance', (c) => {
 });
 
 app.route('/api', api);
-app.use('/*', serveStatic({ root: './dist' }));
+// An unknown API path must not fall through to the single-page app and answer 200 with HTML.
+app.all('/api/*', (c) => c.json({ error: 'Not found' }, 404));
+app.use(
+  '/*',
+  serveStatic({
+    root: './dist',
+    // Build assets carry a content hash in their name, so they can be cached for good.
+    onFound: (path, c) => {
+      if (path.includes('/assets/')) c.header('Cache-Control', 'public, max-age=31536000, immutable');
+    },
+  })
+);
 app.get('*', serveStatic({ path: './dist/index.html' }));
 
 const port = Number(process.env.PORT) || 3000;
-serve({ fetch: app.fetch, port }, () => console.log(`Meal planner listening on http://localhost:${port}`));
+const server = serve({ fetch: app.fetch, port }, () => console.log(`Meal planner listening on http://localhost:${port}`));
+
+// Shut down cleanly on `docker stop`: closing the database checkpoints the WAL into yemek.db,
+// and the container exits at once instead of being killed after the grace period.
+let closing = false;
+function shutdown() {
+  if (closing) return;
+  closing = true;
+  const finish = () => {
+    try {
+      db.close();
+    } catch {
+      /* already closed */
+    }
+    process.exit(0);
+  };
+  server.close(finish);
+  setTimeout(finish, 2000).unref(); // keep-alive connections must not hold the exit up
+}
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
