@@ -5,7 +5,8 @@ import {
 } from '@dnd-kit/core';
 import { api } from './api';
 import type { PlanEntry, Profile, Recipe, Shopping, SlotId, WeekSummary } from './types';
-import { weekStartOf } from '../shared/format.js';
+import { addDays, parseIso, weekStartOf } from '../shared/format.js';
+import { store } from './storage';
 import Header from './components/Header';
 import RecipePanel from './components/RecipePanel';
 import PlanGrid from './components/PlanGrid';
@@ -21,15 +22,17 @@ type Tab = 'recipes' | 'plan' | 'shopping';
 const EMPTY_SHOPPING: Shopping = { items: [], manual: [] };
 
 export default function App() {
-  const { t } = useI18n();
+  const { t, dayName, slot: slotName } = useI18n();
   const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [profileId, setProfileId] = useState<number>(() => Number(localStorage.getItem('profileId')) || 0);
+  const [profileId, setProfileId] = useState<number>(() => Number(store.get('profileId')) || 0);
   const [week, setWeek] = useState<string>(() => weekStartOf(new Date()));
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [plan, setPlan] = useState<PlanEntry[]>([]);
   const [shopping, setShopping] = useState<Shopping>(EMPTY_SHOPPING);
   const [weeks, setWeeks] = useState<WeekSummary[]>([]);
   const [tab, setTab] = useState<Tab>('plan');
+  // Telefonda boş öğündeki + ile başlar: Tarifler sekmesine geçilir, dokunulan tarif o öğüne eklenir.
+  const [pickTarget, setPickTarget] = useState<{ day: number; slot: SlotId } | null>(null);
   const [viewing, setViewing] = useState<Recipe | null>(null);
   const [editing, setEditing] = useState<Recipe | 'new' | null>(null);
   const [managingProfiles, setManagingProfiles] = useState(false);
@@ -77,7 +80,7 @@ export default function App() {
   }, [run, loadProfiles, loadRecipes]);
 
   useEffect(() => {
-    if (profileId) localStorage.setItem('profileId', String(profileId));
+    if (profileId) store.set('profileId', String(profileId));
   }, [profileId]);
 
   // Diğer kişinin değişiklikleri de görünsün diye düzenli aralıkla ve sekmeye dönünce tazele.
@@ -136,6 +139,20 @@ export default function App() {
   };
 
   const profile = profiles.find((p) => p.id === profileId);
+  const remaining =
+    shopping.items.filter((i) => !i.excluded && !i.is_staple && !i.checked).length + shopping.manual.filter((m) => !m.checked).length;
+  const TABS: { id: Tab; icon: string; label: string }[] = [
+    { id: 'recipes', icon: '📖', label: t('tabRecipes') },
+    { id: 'plan', icon: '🗓️', label: t('tabPlan') },
+    { id: 'shopping', icon: '🛒', label: t('tabShopping') },
+  ];
+
+  const openOrPick = (recipe: Recipe) => {
+    if (!pickTarget) return setViewing(recipe);
+    addToPlan(recipe.id, pickTarget.day, pickTarget.slot);
+    setPickTarget(null);
+    setTab('plan');
+  };
 
   return (
     <DndContext sensors={sensors} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragCancel={() => setDragLabel(null)}>
@@ -171,8 +188,28 @@ export default function App() {
         )}
 
         <main className="columns" data-tab={tab}>
-          <RecipePanel recipes={recipes} onOpen={setViewing} onNew={() => setEditing('new')} />
-          <PlanGrid week={week} plan={plan} recipes={recipes} onServings={setServings} onRemove={removeEntry} onOpen={setViewing} />
+          <RecipePanel
+            recipes={recipes}
+            onOpen={openOrPick}
+            onNew={() => setEditing('new')}
+            picking={pickTarget && t('pickingFor', { day: dayName(parseIso(addDays(week, pickTarget.day))), meal: slotName(pickTarget.slot) })}
+            onCancelPick={() => {
+              setPickTarget(null);
+              setTab('plan');
+            }}
+          />
+          <PlanGrid
+            week={week}
+            plan={plan}
+            recipes={recipes}
+            onServings={setServings}
+            onRemove={removeEntry}
+            onOpen={setViewing}
+            onPick={(day, slot) => {
+              setPickTarget({ day, slot });
+              setTab('recipes');
+            }}
+          />
           <ShoppingPanel
             shopping={shopping}
             recipes={recipes}
@@ -185,9 +222,19 @@ export default function App() {
         </main>
 
         <nav className="tabs">
-          {(['recipes', 'plan', 'shopping'] as Tab[]).map((x) => (
-            <button key={x} className={tab === x ? 'active' : ''} onClick={() => setTab(x)}>
-              {t(x === 'recipes' ? 'tabRecipes' : x === 'plan' ? 'tabPlan' : 'tabShopping')}
+          {TABS.map((x) => (
+            <button
+              key={x.id}
+              className={tab === x.id ? 'active' : ''}
+              aria-current={tab === x.id ? 'page' : undefined}
+              onClick={() => {
+                if (x.id !== 'recipes') setPickTarget(null);
+                setTab(x.id);
+              }}
+            >
+              <span className="tab-icon" aria-hidden="true">{x.icon}</span>
+              {x.id === 'shopping' && remaining > 0 && <span className="tab-badge">{remaining}</span>}
+              {x.label}
             </button>
           ))}
         </nav>

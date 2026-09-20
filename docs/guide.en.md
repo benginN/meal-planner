@@ -17,7 +17,7 @@ The language menu in the header switches everything between Türkçe, English an
 ## Planning
 
 - **Add a dish:** Drag a recipe from the left and drop it on the lunch or dinner box of a day. A box can hold several dishes (soup + main, for example).
-- **On a phone:** Tap a recipe, pick the day and meal, then tap **Add to plan**. (Press-and-hold dragging also works.)
+- **On a phone:** Tap the **+** in a meal slot and pick from the recipe list; it is added straight to that slot. Or tap a recipe, pick the day and meal, then tap **Add to plan**. (Press-and-hold dragging also works.)
 - **Move:** Drag a planned dish to another box.
 - **Servings:** The **− / +** under a dish sets how many people you cook for. The shopping list updates immediately. Below 1 it drops to half a serving.
 - **Remove:** The **×** on the right of the dish.

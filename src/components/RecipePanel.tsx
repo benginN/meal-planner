@@ -3,11 +3,15 @@ import { useDraggable } from '@dnd-kit/core';
 import type { Recipe } from '../types';
 import { normalizeName } from '../../shared/format.js';
 import { useI18n } from '../i18n';
+import { store } from '../storage';
 
 interface Props {
   recipes: Recipe[];
   onOpen: (recipe: Recipe) => void;
   onNew: () => void;
+  /** Plandaki boş bir öğünden gelindiyse: karta dokunmak tarifi açmaz, o öğüne ekler. */
+  picking: string | null;
+  onCancelPick: () => void;
 }
 
 function RecipeCard({ recipe, onOpen }: { recipe: Recipe; onOpen: (r: Recipe) => void }) {
@@ -20,7 +24,6 @@ function RecipeCard({ recipe, onOpen }: { recipe: Recipe; onOpen: (r: Recipe) =>
     term(recipe.category),
     recipe.duration_min && t('minutes', { n: recipe.duration_min }),
     servings(recipe.base_servings),
-    recipe.kcal != null && `${Math.round(recipe.kcal)} kcal`,
   ];
   return (
     <li
@@ -30,20 +33,33 @@ function RecipeCard({ recipe, onOpen }: { recipe: Recipe; onOpen: (r: Recipe) =>
       className={`recipe-card${isDragging ? ' dragging' : ''}`}
       onClick={() => onOpen(recipe)}
     >
-      <span className="recipe-name">{pick(recipe, 'name')}</span>
-      <span className="recipe-meta">{meta.filter(Boolean).join(' · ')}</span>
+      <span className="recipe-text">
+        <span className="recipe-name">{pick(recipe, 'name')}</span>
+        <span className="recipe-meta">{meta.filter(Boolean).join(' · ')}</span>
+      </span>
+      {recipe.kcal != null && (
+        <span className="kcal-pill" title={t('perServing')}>
+          <strong>{Math.round(recipe.kcal)}</strong> kcal
+          {recipe.protein_g != null && <small>{Math.round(recipe.protein_g)} g P</small>}
+        </span>
+      )}
     </li>
   );
 }
 
-export default function RecipePanel({ recipes, onOpen, onNew }: Props) {
+export default function RecipePanel({ recipes, onOpen, onNew, picking, onCancelPick }: Props) {
   const { t, term, pick, locale } = useI18n();
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('');
   const [tag, setTag] = useState('');
-  const [filtersOpen, setFiltersOpen] = useState(() => localStorage.getItem('filtersOpen') !== '0');
+  const [filtersOpen, setFiltersOpen] = useState(() => {
+    // Telefonda filtreler ekranın tamamını kaplıyor; tercih kaydedilmemişse orada kapalı başlar.
+    const saved = store.get('filtersOpen');
+    if (saved != null) return saved !== '0';
+    return !(window.matchMedia && window.matchMedia('(max-width: 960px)').matches);
+  });
 
-  useEffect(() => localStorage.setItem('filtersOpen', filtersOpen ? '1' : '0'), [filtersOpen]);
+  useEffect(() => store.set('filtersOpen', filtersOpen ? '1' : '0'), [filtersOpen]);
 
   const sortTr = (a: string, b: string) => a.localeCompare(b, 'tr');
   const categories = useMemo(() => [...new Set(recipes.map((r) => r.category))].sort(sortTr), [recipes]);
@@ -67,6 +83,12 @@ export default function RecipePanel({ recipes, onOpen, onNew }: Props) {
 
   return (
     <section className="panel recipes-panel">
+      {picking && (
+        <div className="pick-banner" role="status">
+          <span>{picking}</span>
+          <button onClick={onCancelPick}>{t('cancel')}</button>
+        </div>
+      )}
       <div className="panel-head">
         <h2>{t('recipes')} <small>{filtered.length}</small></h2>
         <button className="primary" onClick={onNew}>{t('newRecipe')}</button>

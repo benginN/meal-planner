@@ -1,5 +1,6 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { UNIT_LABELS, formatAmount, toBaseUnit } from '../shared/format.js';
+import { store } from './storage';
 
 export type Lang = 'tr' | 'en' | 'de';
 export const LANGS: { id: Lang; label: string }[] = [
@@ -103,6 +104,13 @@ const tr = {
   profileName: 'Profil adı',
   newProfilePlaceholder: 'Yeni profil adı',
   confirmDeleteProfile: '“{name}” ve tüm planları silinsin mi?',
+  menu: 'Menü',
+  tapHint: 'Bir öğündeki + işaretine dokun, tarifini seç.',
+  addHere: 'Buraya tarif ekle',
+  pickingFor: '{day} · {meal} için tarif seç',
+  weekAverage: 'Günlük ortalama',
+  daysCounted: '{n} gün',
+  dailyTotal: 'Günlük toplam',
   printTitle: 'Haftalık Yemek Planı',
   printShopping: 'Alışveriş Listesi',
 };
@@ -203,6 +211,13 @@ const en: Record<Key, string> = {
   profileName: 'Profile name',
   newProfilePlaceholder: 'New profile name',
   confirmDeleteProfile: 'Delete “{name}” and all of its plans?',
+  menu: 'Menu',
+  tapHint: 'Tap the + in a meal slot and pick a recipe.',
+  addHere: 'Add a recipe here',
+  pickingFor: 'Pick a recipe for {day} · {meal}',
+  weekAverage: 'Daily average',
+  daysCounted: '{n} days',
+  dailyTotal: 'Daily total',
   printTitle: 'Weekly Meal Plan',
   printShopping: 'Shopping List',
 };
@@ -301,6 +316,13 @@ const de: Record<Key, string> = {
   profileName: 'Profilname',
   newProfilePlaceholder: 'Neuer Profilname',
   confirmDeleteProfile: '„{name}“ und alle zugehörigen Pläne löschen?',
+  menu: 'Menü',
+  tapHint: 'Tippe auf das + einer Mahlzeit und wähle ein Rezept.',
+  addHere: 'Rezept hier hinzufügen',
+  pickingFor: 'Rezept wählen für {day} · {meal}',
+  weekAverage: 'Tagesdurchschnitt',
+  daysCounted: '{n} Tage',
+  dailyTotal: 'Tagessumme',
   printTitle: 'Wochenplan',
   printShopping: 'Einkaufsliste',
 };
@@ -330,9 +352,9 @@ const TERMS: Record<string, { en: string; de: string }> = {
 };
 
 function detectLang(): Lang {
-  const saved = localStorage.getItem('lang');
+  const saved = store.get('lang');
   if (saved === 'tr' || saved === 'en' || saved === 'de') return saved;
-  const nav = navigator.language.slice(0, 2);
+  const nav = (navigator.language || '').slice(0, 2);
   return nav === 'de' || nav === 'en' ? nav : 'tr';
 }
 
@@ -374,12 +396,15 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const value = useMemo(
     () =>
       makeI18n(lang, (l) => {
-        localStorage.setItem('lang', l);
-        document.documentElement.lang = l;
+        store.set('lang', l);
         setLangState(l);
       }),
     [lang]
   );
+  // <html lang> ilk açılışta da doğru olsun: CSS büyük harf dönüşümü dile bakar (tr'de i → İ, "DİNNER" hatası).
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

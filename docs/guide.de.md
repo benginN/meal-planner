@@ -17,7 +17,7 @@ Der Bildschirm hat drei Spalten. Auf dem Handy werden daraus die Tabs **Rezepte 
 ## Planen
 
 - **Gericht hinzufügen:** Ziehe ein Rezept von links auf das Mittag- oder Abendfeld eines Tages. Ein Feld kann mehrere Gerichte enthalten (z. B. Suppe + Hauptgericht).
-- **Auf dem Handy:** Rezept antippen, Tag und Mahlzeit wählen, dann **Zum Plan hinzufügen**. (Gedrückt halten und ziehen funktioniert auch.)
+- **Auf dem Handy:** Tippe auf das **+** einer Mahlzeit und wähle aus der Rezeptliste; es landet direkt dort. Oder: Rezept antippen, Tag und Mahlzeit wählen, dann **Zum Plan hinzufügen**. (Gedrückt halten und ziehen funktioniert auch.)
 - **Verschieben:** Ein geplantes Gericht in ein anderes Feld ziehen.
 - **Portionen:** Mit **− / +** unter dem Gericht legst du fest, für wie viele Personen gekocht wird. Die Einkaufsliste passt sich sofort an. Unter 1 geht es auf eine halbe Portion.
 - **Entfernen:** Das **×** rechts am Gericht.

@@ -19,7 +19,7 @@ Başlıktaki dil menüsü her şeyi Türkçe, English ve Deutsch arasında deği
 ## Plan yapmak
 
 - **Yemek eklemek:** Soldaki tarifi tutup istediğin günün öğle ya da akşam kutusuna bırak. Bir kutuya birden fazla yemek konabilir (çorba + ana yemek gibi).
-- **Telefonda:** Tarife dokun, açılan pencerede gün ve öğünü seçip **Plana ekle**'ye bas. (Basılı tutarak sürüklemek de çalışır.)
+- **Telefonda:** Plandaki bir öğünün **+** işaretine dokun, açılan tarif listesinden seç; tarif doğrudan o öğüne eklenir. Ya da tarife dokun, açılan pencerede gün ve öğünü seçip **Plana ekle**'ye bas. (Basılı tutarak sürüklemek de çalışır.)
 - **Taşımak:** Plandaki yemeği tutup başka bir kutuya bırak.
 - **Porsiyon:** Yemeğin altındaki **− / +** kaç kişilik pişeceğini belirler. Alışveriş listesi anında güncellenir. 1'in altına inince yarım porsiyona düşer.
 - **Çıkarmak:** Yemeğin sağındaki **×**.
