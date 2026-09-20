@@ -17,7 +17,7 @@ const api = new Hono();
 api.onError((err, c) => {
   const conflict = /UNIQUE/.test(err.message);
   if (!conflict) console.error(err);
-  return c.json({ error: conflict ? 'Bu isim zaten kullanılıyor' : err.message }, conflict ? 409 : 400);
+  return c.json({ error: conflict ? 'That name is already in use' : err.message }, conflict ? 409 : 400);
 });
 
 const WEEK_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -32,7 +32,7 @@ function scope(c, src) {
 api.get('/profiles', (c) => c.json(db.prepare('SELECT * FROM profiles ORDER BY id').all()));
 api.post('/profiles', async (c) => {
   const { name, color } = await c.req.json();
-  if (!String(name || '').trim()) throw new Error('Profil adı gerekli');
+  if (!String(name || '').trim()) throw new Error('Profile name is required');
   const res = db.prepare('INSERT INTO profiles (name, color) VALUES (?, ?)').run(name.trim(), color || '#c2410c');
   return c.json({ id: Number(res.lastInsertRowid) }, 201);
 });
@@ -61,13 +61,13 @@ api.delete('/recipes/:id', (c) => {
 });
 api.post('/import', async (c) => c.json({ added: importRecipes(await c.req.json()) }));
 
-// --- Malzeme kataloğu
+// --- Ingredient catalogue
 api.get('/ingredients', (c) => c.json(db.prepare('SELECT * FROM ingredients ORDER BY name').all()));
 api.put('/ingredients/:id', async (c) => {
   const id = Number(c.req.param('id'));
   const body = await c.req.json();
   if ('category' in body) {
-    if (!CATEGORIES.includes(body.category)) throw new Error('Geçersiz kategori');
+    if (!CATEGORIES.includes(body.category)) throw new Error('Invalid category');
     db.prepare('UPDATE ingredients SET category = ? WHERE id = ?').run(body.category, id);
   }
   if ('is_staple' in body) db.prepare('UPDATE ingredients SET is_staple = ? WHERE id = ?').run(body.is_staple ? 1 : 0, id);
@@ -75,7 +75,7 @@ api.put('/ingredients/:id', async (c) => {
   return c.json({ ok: true });
 });
 
-// --- Haftalık plan
+// --- Weekly plan
 api.get('/plan', (c) => {
   const { profileId, week } = scope(c, c.req.query());
   return c.json(getPlan(profileId, week));
@@ -84,7 +84,7 @@ api.post('/plan', async (c) => {
   const body = await c.req.json();
   const { profileId, week } = scope(c, body);
   const recipe = db.prepare('SELECT base_servings FROM recipes WHERE id = ?').get(Number(body.recipe_id));
-  if (!recipe) throw new Error('Tarif bulunamadı');
+  if (!recipe) throw new Error('Recipe not found');
   const res = db
     .prepare(
       `INSERT INTO plan_entries (profile_id, week_start, day, slot, recipe_id, servings, position)
@@ -98,7 +98,7 @@ api.patch('/plan/:id', async (c) => {
   const body = await c.req.json();
   if ('servings' in body) {
     const servings = Number(body.servings);
-    if (!(servings > 0)) throw new Error('Porsiyon pozitif olmalı');
+    if (!(servings > 0)) throw new Error('Servings must be positive');
     db.prepare('UPDATE plan_entries SET servings = ? WHERE id = ?').run(servings, id);
   }
   if ('day' in body && 'slot' in body) {
@@ -117,7 +117,7 @@ api.delete('/plan', (c) => {
   db.prepare('DELETE FROM plan_entries WHERE profile_id = ? AND week_start = ?').run(profileId, week);
   return c.json({ ok: true });
 });
-// Başka bir haftanın (ya da başka profilin) planını bu haftaya ekler.
+// Copies another week's (or another profile's) plan into this week.
 api.post('/plan/copy', async (c) => {
   const body = await c.req.json();
   const { profileId, week } = scope(c, body);
@@ -145,7 +145,7 @@ api.get('/weeks', (c) => {
   );
 });
 
-// --- Alışveriş listesi
+// --- Shopping list
 api.get('/shopping', (c) => {
   const { profileId, week } = scope(c, c.req.query());
   return c.json(buildShoppingList(profileId, week));
@@ -174,7 +174,7 @@ api.delete('/shopping/manual/:id', (c) => {
   return c.json({ ok: true });
 });
 
-// --- Glance custom-api widget'ı için özet. ?profile=<id ya da isim> (verilmezse ilk profil), ?lang=tr|en|de.
+// --- Summary for the Glance custom-api widget. ?profile=<id or name> (defaults to the first profile), ?lang=tr|en|de.
 api.get('/glance', (c) => {
   const lang = ['en', 'de'].includes(c.req.query('lang')) ? c.req.query('lang') : 'tr';
   const pick = (row, field) => (lang !== 'tr' && row[`${field}_${lang}`]) || row[field];
@@ -226,4 +226,4 @@ app.use('/*', serveStatic({ root: './dist' }));
 app.get('*', serveStatic({ path: './dist/index.html' }));
 
 const port = Number(process.env.PORT) || 3000;
-serve({ fetch: app.fetch, port }, () => console.log(`Yemek planlayıcı http://localhost:${port} adresinde`));
+serve({ fetch: app.fetch, port }, () => console.log(`Meal planner listening on http://localhost:${port}`));

@@ -13,7 +13,7 @@ export function getPlan(profileId, week) {
     .all(profileId, week);
 }
 
-// Plandaki tüm tariflerin malzemelerini porsiyona göre ölçekleyip malzeme bazında toplar.
+// Scales every planned recipe's ingredients by servings and sums them per ingredient.
 export function buildShoppingList(profileId, week) {
   const rows = db
     .prepare(
@@ -65,7 +65,7 @@ export function buildShoppingList(profileId, week) {
 
   const list = [...items.values()].map(({ totals, unmeasured, recipes, ...item }) => ({
     ...item,
-    // "2 adet + 200 g" gibi birbirine çevrilemeyen birimler ayrı ayrı döner, arayüz yan yana gösterir.
+    // Units that cannot be converted into each other ("2 pc + 200 g") are returned separately; the UI shows them side by side.
     amounts: [...totals].map(([unit, amount]) => ({ amount, unit })),
     recipe_ids: [...recipes],
   }));

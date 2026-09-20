@@ -1,12 +1,12 @@
 services:
-  yemek-planlayici:
+  meal-planner:
     build: .
-    image: yemek-planlayici:latest
-    container_name: yemek-planlayici
+    image: meal-planner:latest
+    container_name: meal-planner
     restart: unless-stopped
     ports:
       - "3456:3000"
     environment:
-      TZ: Europe/Istanbul
+      TZ: Europe/Berlin
     volumes:
       - ./data:/data

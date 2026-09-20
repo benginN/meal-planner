@@ -1,4 +1,5 @@
-// Sunucu ve arayüzün ortak kullandığı birim/miktar yardımcıları.
+// Unit/amount helpers shared by the server and the UI.
+// Units, categories and slot ids are stored in Turkish (the app's original language); the UI translates them.
 
 export const UNITS = [
   'g', 'kg', 'ml', 'l', 'adet', 'diş', 'demet', 'dal', 'yaprak', 'dilim',
@@ -6,7 +7,7 @@ export const UNITS = [
   'kahve fincanı', 'paket', 'kutu', 'tutam', 'avuç',
 ];
 
-// Birimler veritabanında Türkçe saklanır; diğer dillerdeki görünen karşılıkları.
+// Display labels for the stored (Turkish) units in the other languages.
 export const UNIT_LABELS = {
   adet: { en: 'pc', de: 'Stk.' }, diş: { en: 'clove', de: 'Zehe' }, demet: { en: 'bunch', de: 'Bund' }, dal: { en: 'stalk', de: 'Stange' },
   yaprak: { en: 'leaf', de: 'Blatt' }, dilim: { en: 'slice', de: 'Scheibe' }, 'yemek kaşığı': { en: 'tbsp', de: 'EL' },
@@ -47,7 +48,7 @@ export function toBaseUnit(amount, unit) {
 
 const FRACTIONS = { 0.25: '¼', 0.5: '½', 0.75: '¾' };
 
-// unitLabel ve decimal arayüz diline göre verilir; varsayılan Türkçedir (Glance çıktısı gibi).
+// unitLabel and decimal follow the UI language; the default is Turkish (e.g. for the Glance output).
 export function formatAmount(amount, unit, { unitLabel = (u) => u, decimal = ',' } = {}) {
   if (unit === 'g' || unit === 'ml') {
     if (amount >= 1000) {
@@ -68,7 +69,7 @@ export function normalizeName(name) {
   return String(name || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('tr');
 }
 
-// Haftanın pazartesisi, YYYY-MM-DD (yerel saat).
+// Monday of the week, YYYY-MM-DD (local time).
 export function weekStartOf(date) {
   const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
   d.setDate(d.getDate() - ((d.getDay() + 6) % 7));

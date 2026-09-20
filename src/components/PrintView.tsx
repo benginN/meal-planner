@@ -13,7 +13,7 @@ interface Props {
 
 const sum = (list: PlanEntry[], field: 'kcal' | 'protein_g') => list.reduce((total, e) => total + (e[field] ?? 0), 0);
 
-// Yalnızca yazdırırken (PDF'e kaydederken) görünür.
+// Only visible when printing (saving as PDF).
 export default function PrintView({ profile, week, plan, shopping }: Props) {
   const { t, term, amount, slot, dayName, dayMonth, servings, pick } = useI18n();
   const weekLabel = useWeekLabel();

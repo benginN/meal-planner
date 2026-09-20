@@ -27,7 +27,7 @@ export default function Header(p: Props) {
   const weekLabel = useWeekLabel();
   const thisWeek = weekStartOf(new Date());
   const otherWeeks = p.weeks.filter((w) => w.week_start !== p.week);
-  // Telefonda ikincil işlemler ☰ menüsünün arkasında durur; geniş ekranda hep açıktır (CSS).
+  // On phones the secondary actions sit behind the ☰ menu; on wide screens they are always visible (CSS).
   const [menuOpen, setMenuOpen] = useState(false);
   const closing = (fn: () => void) => () => {
     setMenuOpen(false);

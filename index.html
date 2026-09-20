@@ -1,27 +1,27 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#c2410c" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Yemek" />
+    <meta name="apple-mobile-web-app-title" content="Meals" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍲</text></svg>" />
-    <title>Yemek Planlayıcı</title>
+    <title>Meal Planner</title>
     <script>
-      // Uygulama açılırken çökerse ekran bomboş kalmasın: hatayı göster ki neyin bozulduğu anlaşılsın.
-      // (Modül betiğinden ÖNCE ve eski sözdizimiyle yazıldı; paket hiç ayrıştırılamasa bile çalışır.)
+      // If the app crashes while starting, do not leave a blank screen: show the error so the cause is visible.
+      // (Runs BEFORE the module script and uses old syntax, so it works even if the bundle cannot be parsed at all.)
       (function () {
         function show(msg) {
           var root = document.getElementById('root');
-          if (root && root.childElementCount) return; // arayüz çizildiyse kendi hata şeridi var
+          if (root && root.childElementCount) return; // once the UI has rendered it has its own error bar
           var box = document.getElementById('boot-error');
           if (!box) {
             box = document.createElement('pre');
             box.id = 'boot-error';
             box.style.cssText = 'margin:0;padding:24px 16px;white-space:pre-wrap;word-break:break-word;font:14px/1.5 -apple-system,system-ui,sans-serif;color:#b91c1c;background:#fff;min-height:100vh;box-sizing:border-box';
-            box.textContent = 'Yemek Planlayıcı açılamadı / failed to start\n\n';
+            box.textContent = 'Meal Planner failed to start\n\n';
             document.body.appendChild(box);
           }
           box.textContent += msg + '\n\n' + navigator.userAgent + '\n\n';
@@ -33,7 +33,7 @@
           show('Promise: ' + (e.reason && (e.reason.stack || e.reason.message) || e.reason));
         });
         window.__bootError = show;
-        // Eski Safari'de eksik iki küçük yardımcı (kütüphaneler kullanıyor).
+        // Two small helpers missing in older Safari (libraries rely on them).
         if (!Array.prototype.at) {
           var at = function (n) { n = Math.trunc(n) || 0; if (n < 0) n += this.length; return n < 0 || n >= this.length ? undefined : this[n]; };
           Object.defineProperty(Array.prototype, 'at', { value: at, writable: true, configurable: true });

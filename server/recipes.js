@@ -2,7 +2,9 @@ import { readFileSync, existsSync } from 'node:fs';
 import { db, transaction } from './db.js';
 import { normalizeName, CATEGORIES } from '../shared/format.js';
 
-// Formdan eklenen yeni malzemeler için kaba reyon tahmini; listeden sonradan değiştirilebilir.
+// Rough aisle guess for ingredients typed into the form; can be changed later from the shopping list.
+// Canonical ingredient, unit and category values are stored in Turkish (the app's original language)
+// and translated at display time, so the keys below are Turkish on purpose.
 const GUESSES = [
   ['Yağ & Temel Malzeme', true, ['tuz', 'zeytinyağı', 'ayçiçek yağı', 'sıvı yağ', 'su', 'sıcak su', 'şeker', 'toz şeker', 'un', 'sirke']],
   ['Baharat', true, ['karabiber', 'pul biber', 'kimyon', 'kekik', 'nane', 'kuru nane', 'sumak', 'toz kırmızı biber', 'kırmızı biber', 'zerdeçal', 'köri', 'tarçın', 'yenibahar', 'defne yaprağı', 'isot']],
@@ -24,14 +26,14 @@ function guess(name) {
 
 const LANGS = ['tr', 'en', 'de'];
 const langOf = (lang) => (LANGS.includes(lang) ? lang : 'tr');
-// Türkçe asıl sütundur; diğer diller "_en" / "_de" ekiyle saklanır.
+// The base column holds Turkish; other languages live in "_en" / "_de" columns.
 const col = (field, lang) => (lang === 'tr' ? field : `${field}_${lang}`);
 const clean = (text) => String(text || '').trim().replace(/\s+/g, ' ');
 
-// Malzeme hangi dilde yazılmış olursa olsun aynı kayda bağlanır.
+// Whatever language an ingredient is typed in, it resolves to the same record.
 export function findOrCreateIngredient(rawName, hint = {}, lang = 'tr') {
   const typed = clean(rawName);
-  if (!typed) throw new Error('Malzeme adı boş olamaz');
+  if (!typed) throw new Error('Ingredient name cannot be empty');
   const key = normalizeName(typed);
   const existing =
     db
@@ -41,7 +43,7 @@ export function findOrCreateIngredient(rawName, hint = {}, lang = 'tr') {
     db.prepare('SELECT ingredient_id AS id FROM ingredient_aliases WHERE alias = ?').get(key);
 
   if (existing) {
-    // Seed'den gelen çeviriler, henüz çevirisi olmayan malzemeleri tamamlar.
+    // Translations coming from the seed fill in ingredients that have none yet.
     for (const l of ['en', 'de']) {
       if (hint[`name_${l}`] && !existing[`name_${l}`]) {
         db.prepare(`UPDATE ingredients SET name_${l} = ? WHERE id = ?`).run(clean(hint[`name_${l}`]), existing.id);
@@ -83,13 +85,13 @@ export function getRecipe(id) {
   return listRecipes().find((r) => r.id === id) || null;
 }
 
-// Porsiyon başına besin değerleri; hepsi opsiyonel.
+// Nutrition per serving; all optional.
 const MACROS = ['kcal', 'protein_g', 'carbs_g', 'fat_g'];
 const TEXTS = ['name', 'instructions', 'notes'];
 
 function validate(data) {
   const name = clean(data.name);
-  if (!name) throw new Error('Tarif adı gerekli');
+  if (!name) throw new Error('Recipe name is required');
   const base = Number(data.base_servings) || 2;
   return {
     name,
@@ -105,7 +107,7 @@ function validate(data) {
 }
 
 function writeIngredients(recipeId, ingredients, lang) {
-  // Düzenlenen dil dışındaki malzeme notları kaybolmasın.
+  // Keep the ingredient notes of the languages that are not being edited.
   const previous = new Map(
     db.prepare('SELECT ingredient_id, note, note_en, note_de FROM recipe_ingredients WHERE recipe_id = ?').all(recipeId).map((r) => [r.ingredient_id, r])
   );
@@ -120,7 +122,7 @@ function writeIngredients(recipeId, ingredients, lang) {
     const old = previous.get(ingredientId) || {};
     const notes = { note: old.note ?? '', note_en: ing.note_en ?? old.note_en ?? null, note_de: ing.note_de ?? old.note_de ?? null };
     notes[col('note', lang)] = String(ing.note || '');
-    // Türkçe not zorunlu sütun; başka dilde oluşturulan satırda o dilin notuna düşer.
+    // The base note column is NOT NULL; a row created in another language reuses that language's note.
     if (!previous.has(ingredientId) && lang !== 'tr') notes.note = String(ing.note || '');
     insert.run(recipeId, ingredientId, Number.isFinite(amount) ? amount : null, ing.unit || null, notes.note, notes.note_en, notes.note_de, i);
   });
@@ -138,7 +140,7 @@ export function createRecipe(data, lang = 'tr') {
       )
       .run(
         r.name, r.category, r.base_servings, r.duration_min, r.tags, r.instructions, r.notes, ...r.macros,
-        // Seed çevirileri hazır getirir; arayüzden başka dilde eklenen tarifte yazılan metin o dilin de karşılığıdır.
+        // The seed ships translations; for a recipe created in the UI in another language, the typed text is that language's version too.
         ...TEXTS.flatMap((f) => ['en', 'de'].map((l) => data[`${f}_${l}`] ?? (lang === l ? r[f] : null)))
       );
     const id = Number(res.lastInsertRowid);
@@ -163,8 +165,8 @@ export function deleteRecipe(id) {
   db.prepare('DELETE FROM recipes WHERE id = ?').run(id);
 }
 
-// Aynı isimde tarif varsa Türkçe içeriğine dokunmaz (arayüzden yapılan düzenlemeler ezilmesin);
-// yalnızca boş kalan çevirileri tamamlar.
+// If a recipe with the same name exists its base content is left alone (UI edits must not be overwritten);
+// only missing translations are filled in.
 export function importRecipes(list) {
   let added = 0;
   for (const data of list) {

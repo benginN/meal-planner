@@ -23,7 +23,7 @@ const EMPTY_ROW: Row = { name: '', amount: '', unit: '', note: '' };
 const DEFAULT_CATEGORIES = ['Ana Yemek', 'Çorba', 'Salata', 'Makarna & Pilav', 'Zeytinyağlı', 'Atıştırmalık', 'Tatlı'];
 
 export default function RecipeForm({ recipe, recipes, onClose, onSaved }: Props) {
-  // Form seçili dildeki metni düzenler; kaydederken sunucu o dilin alanlarına yazar.
+  // The form edits the text of the selected language; on save the server writes that language's fields.
   const { t, term, pick, lang, locale } = useI18n();
   const [name, setName] = useState(recipe ? pick(recipe, 'name') : '');
   const [category, setCategory] = useState(recipe?.category ?? 'Ana Yemek');

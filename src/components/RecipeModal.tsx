@@ -22,7 +22,7 @@ export default function RecipeModal({ recipe, week, onClose, onEdit, onAdd }: Pr
   const [slot, setSlot] = useState<SlotId>('aksam');
   const [added, setAdded] = useState(false);
   const factor = servings / recipe.base_servings;
-  // Makroların kaloriye katkısı (protein/karbonhidrat 4, yağ 9 kcal/g) — dağılım çubuğu bununla çizilir.
+  // Calorie share of each macro (protein/carbs 4, fat 9 kcal/g) — drives the distribution bar.
   const macros = [
     { id: 'protein' as const, grams: recipe.protein_g, perGram: 4 },
     { id: 'carbs' as const, grams: recipe.carbs_g, perGram: 4 },

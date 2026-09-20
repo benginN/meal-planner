@@ -31,7 +31,7 @@ export default function App() {
   const [shopping, setShopping] = useState<Shopping>(EMPTY_SHOPPING);
   const [weeks, setWeeks] = useState<WeekSummary[]>([]);
   const [tab, setTab] = useState<Tab>('plan');
-  // Telefonda boş öğündeki + ile başlar: Tarifler sekmesine geçilir, dokunulan tarif o öğüne eklenir.
+  // Phone flow, started by the + in an empty slot: switch to Recipes, the tapped recipe goes into that slot.
   const [pickTarget, setPickTarget] = useState<{ day: number; slot: SlotId } | null>(null);
   const [viewing, setViewing] = useState<Recipe | null>(null);
   const [editing, setEditing] = useState<Recipe | 'new' | null>(null);
@@ -83,7 +83,7 @@ export default function App() {
     if (profileId) store.set('profileId', String(profileId));
   }, [profileId]);
 
-  // Diğer kişinin değişiklikleri de görünsün diye düzenli aralıkla ve sekmeye dönünce tazele.
+  // Refresh periodically and on tab focus so the other person's changes show up.
   useEffect(() => {
     run(loadWeek);
     const refresh = () => document.visibilityState === 'visible' && run(loadWeek);

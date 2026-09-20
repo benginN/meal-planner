@@ -404,6 +404,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   // <html lang> ilk açılışta da doğru olsun: CSS büyük harf dönüşümü dile bakar (tr'de i → İ, "DİNNER" hatası).
   useEffect(() => {
     document.documentElement.lang = lang;
+    document.title = STRINGS[lang].appTitle;
   }, [lang]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

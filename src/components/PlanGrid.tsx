@@ -23,9 +23,9 @@ function Entry({ entry, onServings, onRemove, onOpen }: EntryProps) {
     id: `entry-${entry.id}`,
     data: { type: 'entry', entry, label: name },
   });
-  // Butonlara basmak sürüklemeyi başlatmasın.
+  // Pressing the buttons must not start a drag.
   const stop = (e: React.SyntheticEvent) => e.stopPropagation();
-  // 1'in altında yarımşar, üstünde birer birer.
+  // Halves below 1, whole steps above.
   const less = entry.servings <= 1 ? 0.5 : entry.servings - 1;
   const more = entry.servings < 1 ? 1 : entry.servings + 1;
 
@@ -59,8 +59,8 @@ export default function PlanGrid({ week, plan, recipes, onServings, onRemove, on
   const today = isoDate(new Date());
   const todayRow = useRef<HTMLDivElement>(null);
 
-  // Telefonda liste uzun: bu haftaya bakılıyorsa bugünün kartı görünür gelsin.
-  // Plan yüklenince kartların boyu değişir; o yüzden hafta başına bir kez ve veri geldikten sonra kaydırılır.
+  // The list is long on phones: when viewing the current week bring today's card into view.
+  // Cards change height once the plan loads, so scroll once per week and only after the data arrived.
   const scrolledFor = useRef('');
   const loaded = plan.length > 0;
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function PlanGrid({ week, plan, recipes, onServings, onRemove, on
     }
   }, [week, loaded]);
 
-  // Haftalık özet: yalnız yemeği olan günlerin ortalaması (boş günler ortalamayı düşürmesin).
+  // Weekly summary: average over days that have meals (empty days must not drag it down).
   const days = Array.from({ length: 7 }, (_, day) => plan.filter((e) => e.day === day));
   const counted = days.filter((d) => sum(d, 'kcal') > 0);
   const avgKcal = counted.length ? sum(plan, 'kcal') / counted.length : 0;

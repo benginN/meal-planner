@@ -81,8 +81,8 @@ db.exec(`
   );
 `);
 
-// Sonradan eklenen sütunlar: mevcut veritabanlarında yoksa ekle.
-// Çeviri sütunları (_en/_de) boşsa arayüz Türkçe asıl sütuna düşer.
+// Columns added later: create them if an existing database lacks them.
+// When a translation column (_en/_de) is empty the UI falls back to the base (Turkish) column.
 const ADDED_COLUMNS = {
   recipes: {
     kcal: 'REAL', protein_g: 'REAL', carbs_g: 'REAL', fat_g: 'REAL',

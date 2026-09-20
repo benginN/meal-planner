@@ -4,8 +4,8 @@ import App from './App';
 import { I18nProvider } from './i18n';
 import './styles.css';
 
-// Çizim sırasında fırlayan hata React ağacını söker ve geriye boş (koyu temada simsiyah) sayfa kalır.
-// Onun yerine ne olduğunu ve yeniden dene düğmesini göster.
+// An error thrown while rendering unmounts the React tree and leaves an empty page (pitch black in dark mode).
+// Show what happened and a retry button instead.
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null as Error | null };
   static getDerivedStateFromError(error: Error) {
@@ -16,10 +16,10 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | 
     if (!error) return this.props.children;
     return (
       <div className="crash">
-        <h1>🍲 Bir şeyler ters gitti</h1>
-        <p>Something went wrong · Etwas ist schiefgelaufen</p>
+        <h1>🍲 Something went wrong</h1>
+        <p>Bir şeyler ters gitti · Etwas ist schiefgelaufen</p>
         <pre>{error.message}{'\n\n'}{error.stack}{'\n\n'}{navigator.userAgent}</pre>
-        <button className="primary" onClick={() => location.reload()}>↻ Yeniden dene</button>
+        <button className="primary" onClick={() => location.reload()}>↻ Reload</button>
       </div>
     );
   }

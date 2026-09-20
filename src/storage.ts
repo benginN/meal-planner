@@ -1,6 +1,6 @@
-// Safari'de "tüm çerezleri engelle" açıkken ya da bazı gömülü tarayıcılarda localStorage'a
-// dokunmak bile SecurityError fırlatır; bu ilk çizimde olursa uygulama bomboş (siyah) ekranda kalır.
-// Tercihleri saklayamamak uygulamayı düşürmemeli.
+// With "block all cookies" on in Safari, and in some embedded browsers, merely touching
+// localStorage throws a SecurityError; on first render that leaves the app on a blank (black) screen.
+// Failing to persist a preference must never take the app down.
 export const store = {
   get(key: string): string | null {
     try {
@@ -13,7 +13,7 @@ export const store = {
     try {
       window.localStorage.setItem(key, value);
     } catch {
-      /* saklanamadıysa bu oturumluk geçerli olur */
+      /* if it cannot be stored it simply lasts for this session */
     }
   },
 };

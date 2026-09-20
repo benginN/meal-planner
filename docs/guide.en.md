@@ -1,6 +1,6 @@
 # 🍲 Meal Planner
 
-A small self-hosted app where you build your weekly meal plan by drag and drop and the shopping list writes itself. Setup, Glance and developer notes live in the repository's `README.md` (Turkish).
+A small self-hosted app where you build your weekly meal plan by drag and drop and the shopping list writes itself. Setup, Glance and developer notes live in the repository's `README.md`.
 
 ## Screen layout
 

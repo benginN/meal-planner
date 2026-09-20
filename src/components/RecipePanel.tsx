@@ -9,7 +9,7 @@ interface Props {
   recipes: Recipe[];
   onOpen: (recipe: Recipe) => void;
   onNew: () => void;
-  /** Plandaki boş bir öğünden gelindiyse: karta dokunmak tarifi açmaz, o öğüne ekler. */
+  /** Set when coming from an empty plan slot: tapping a card adds it to that slot instead of opening it. */
   picking: string | null;
   onCancelPick: () => void;
 }
@@ -53,7 +53,7 @@ export default function RecipePanel({ recipes, onOpen, onNew, picking, onCancelP
   const [category, setCategory] = useState('');
   const [tag, setTag] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(() => {
-    // Telefonda filtreler ekranın tamamını kaplıyor; tercih kaydedilmemişse orada kapalı başlar.
+    // On phones the filters fill the whole screen; with no saved preference they start collapsed there.
     const saved = store.get('filtersOpen');
     if (saved != null) return saved !== '0';
     return !(window.matchMedia && window.matchMedia('(max-width: 960px)').matches);
@@ -66,7 +66,7 @@ export default function RecipePanel({ recipes, onOpen, onNew, picking, onCancelP
   const tags = useMemo(() => [...new Set(recipes.flatMap((r) => r.tags))].sort(sortTr), [recipes]);
   const activeFilters = [category, tag].filter(Boolean);
 
-  // Ada, etikete ve malzemeye göre arar ("tavuk" yazınca tavuklu her şey gelsin).
+  // Searches name, tags and ingredients (typing "chicken" finds everything with chicken).
   const filtered = useMemo(() => {
     const q = normalizeName(query);
     return recipes
@@ -74,7 +74,7 @@ export default function RecipePanel({ recipes, onOpen, onNew, picking, onCancelP
         if (category && r.category !== category) return false;
         if (tag && !r.tags.includes(tag)) return false;
         if (!q) return true;
-        // Hangi dilde yazılırsa yazılsın bulsun diye bütün dillerdeki adlara bakılır.
+        // Names in every language are searched so the query language does not matter.
         const words = [r.name, r.name_en, r.name_de, ...r.tags, ...r.tags.map(term), ...r.ingredients.flatMap((i) => [i.name, i.name_en, i.name_de])];
         return words.filter(Boolean).map(normalizeName).join(' ').includes(q);
       })

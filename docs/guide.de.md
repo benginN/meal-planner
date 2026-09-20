@@ -1,6 +1,6 @@
 # 🍲 Essensplaner
 
-Eine kleine, selbst gehostete App: Den Wochenplan stellst du per Drag & Drop zusammen, die Einkaufsliste entsteht von allein. Installation, Glance und Entwicklerhinweise stehen in der `README.md` des Repositories (auf Türkisch).
+Eine kleine, selbst gehostete App: Den Wochenplan stellst du per Drag & Drop zusammen, die Einkaufsliste entsteht von allein. Installation, Glance und Entwicklerhinweise stehen in der `README.md` des Repositories (auf Englisch).
 
 ## Aufbau
 
