@@ -32,6 +32,7 @@ export const CATEGORIES = [
 ];
 
 export const SLOTS = [
+  { id: 'kahvalti', label: 'Kahvaltı' },
   { id: 'ogle', label: 'Öğle' },
   { id: 'aksam', label: 'Akşam' },
 ];

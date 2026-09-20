@@ -40,7 +40,7 @@ export interface Recipe {
   ingredients: RecipeIngredient[];
 }
 
-export type SlotId = 'ogle' | 'aksam';
+export type SlotId = 'kahvalti' | 'ogle' | 'aksam';
 
 export interface PlanEntry {
   id: number;

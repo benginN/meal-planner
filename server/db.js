@@ -56,7 +56,7 @@ db.exec(`
     profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
     week_start TEXT NOT NULL,
     day INTEGER NOT NULL CHECK (day BETWEEN 0 AND 6),
-    slot TEXT NOT NULL CHECK (slot IN ('ogle', 'aksam')),
+    slot TEXT NOT NULL CHECK (slot IN ('kahvalti', 'ogle', 'aksam')),
     recipe_id INTEGER NOT NULL REFERENCES recipes(id) ON DELETE CASCADE,
     servings REAL NOT NULL,
     position INTEGER NOT NULL DEFAULT 0
@@ -95,6 +95,37 @@ for (const [table, columns] of Object.entries(ADDED_COLUMNS)) {
   const existing = new Set(db.prepare(`PRAGMA table_info(${table})`).all().map((c) => c.name));
   for (const [column, type] of Object.entries(columns)) {
     if (!existing.has(column)) db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
+  }
+}
+
+// Breakfast was added after the first release. SQLite cannot alter a CHECK constraint in place, so a
+// database created with the old two-slot constraint gets its plan table rebuilt once (rows are kept;
+// nothing references plan_entries, so no foreign keys are affected).
+const planSql = db.prepare("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'plan_entries'").get().sql;
+if (!planSql.includes("'kahvalti'")) {
+  db.exec('BEGIN');
+  try {
+    db.exec(`
+      CREATE TABLE plan_entries_new (
+        id INTEGER PRIMARY KEY,
+        profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+        week_start TEXT NOT NULL,
+        day INTEGER NOT NULL CHECK (day BETWEEN 0 AND 6),
+        slot TEXT NOT NULL CHECK (slot IN ('kahvalti', 'ogle', 'aksam')),
+        recipe_id INTEGER NOT NULL REFERENCES recipes(id) ON DELETE CASCADE,
+        servings REAL NOT NULL,
+        position INTEGER NOT NULL DEFAULT 0
+      );
+      INSERT INTO plan_entries_new (id, profile_id, week_start, day, slot, recipe_id, servings, position)
+        SELECT id, profile_id, week_start, day, slot, recipe_id, servings, position FROM plan_entries;
+      DROP TABLE plan_entries;
+      ALTER TABLE plan_entries_new RENAME TO plan_entries;
+      CREATE INDEX IF NOT EXISTS idx_plan_week ON plan_entries(profile_id, week_start);
+    `);
+    db.exec('COMMIT');
+  } catch (err) {
+    db.exec('ROLLBACK');
+    throw err;
   }
 }
 

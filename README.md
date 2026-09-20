@@ -1,8 +1,8 @@
 # 🍲 Meal Planner
 
-A small self-hosted weekly meal planner. Drag recipes into a lunch/dinner grid, adjust servings, and the shopping list writes itself — grouped by aisle, with ingredients merged across recipes.
+A small self-hosted weekly meal planner. Drag recipes into a breakfast/lunch/dinner grid, adjust servings, and the shopping list writes itself — grouped by aisle, with ingredients merged across recipes.
 
-- **Weekly plan** — 7 days × lunch/dinner, drag and drop on desktop, tap-to-add on phones; every week is saved automatically and can be copied forward
+- **Weekly plan** — 7 days × breakfast/lunch/dinner, drag and drop on desktop, tap-to-add on phones; every week is saved automatically and can be copied forward
 - **Shopping list** — scaled by servings, unit-aware merging (g/kg, ml/l), staples hidden, "have it at home", manual extras
 - **Nutrition** — kcal and macros per serving, daily totals and a weekly daily average
 - **Profiles** — shared recipes, separate plans and lists per person or household
@@ -38,11 +38,13 @@ There is no login: run it on a trusted network or behind your own reverse proxy 
     <ul class="list list-gap-10">
       <li>
         <p class="size-h6 color-subdue">TODAY</p>
+        <p>Breakfast: <span class="color-highlight">{{ if .JSON.String "today.kahvalti" }}{{ .JSON.String "today.kahvalti" }}{{ else }}—{{ end }}</span></p>
         <p>Lunch: <span class="color-highlight">{{ if .JSON.String "today.ogle" }}{{ .JSON.String "today.ogle" }}{{ else }}—{{ end }}</span></p>
         <p>Dinner: <span class="color-highlight">{{ if .JSON.String "today.aksam" }}{{ .JSON.String "today.aksam" }}{{ else }}—{{ end }}</span></p>
       </li>
       <li>
         <p class="size-h6 color-subdue">TOMORROW</p>
+        <p>Breakfast: {{ if .JSON.String "tomorrow.kahvalti" }}{{ .JSON.String "tomorrow.kahvalti" }}{{ else }}—{{ end }}</p>
         <p>Lunch: {{ if .JSON.String "tomorrow.ogle" }}{{ .JSON.String "tomorrow.ogle" }}{{ else }}—{{ end }}</p>
         <p>Dinner: {{ if .JSON.String "tomorrow.aksam" }}{{ .JSON.String "tomorrow.aksam" }}{{ else }}—{{ end }}</p>
       </li>

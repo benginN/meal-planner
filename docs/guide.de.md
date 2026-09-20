@@ -9,14 +9,14 @@ Der Bildschirm hat drei Spalten. Auf dem Handy werden daraus die Tabs **Rezepte 
 | Spalte | Wozu |
 |---|---|
 | **Links – Rezepte** | Alle Rezepte. Die Suche berücksichtigt Rezeptnamen, Tags und Zutaten („Hähnchen“ findet alles mit Hähnchen). **Filter** klappt die Kategorie- und Tag-Chips auf und zu; im zugeklappten Zustand zeigt der Button den aktiven Filter. |
-| **Mitte – Wochenplan** | 7 Tage × Mittag/Abend. Hierhin kommen die Rezepte. |
+| **Mitte – Wochenplan** | 7 Tage × Frühstück/Mittag/Abend. Hierhin kommen die Rezepte. |
 | **Rechts – Einkauf** | Die Zutaten aller geplanten Gerichte, auf deine Portionen umgerechnet und nach Abteilungen sortiert. |
 
 Über das Sprachmenü in der Kopfzeile stellst du alles zwischen Türkçe, English und Deutsch um: Oberfläche, diese Anleitung, Rezeptnamen, Zutaten, Zubereitung und Einkaufsliste. Die mitgelieferten Rezepte sind in alle drei Sprachen übersetzt. Ein selbst angelegtes Rezept erscheint in Sprachen ohne Übersetzung so, wie du es eingegeben hast.
 
 ## Planen
 
-- **Gericht hinzufügen:** Ziehe ein Rezept von links auf das Mittag- oder Abendfeld eines Tages. Ein Feld kann mehrere Gerichte enthalten (z. B. Suppe + Hauptgericht).
+- **Gericht hinzufügen:** Ziehe ein Rezept von links auf das Frühstücks-, Mittags- oder Abendfeld eines Tages. Ein Feld kann mehrere Gerichte enthalten (z. B. Suppe + Hauptgericht).
 - **Auf dem Handy:** Tippe auf das **+** einer Mahlzeit und wähle aus der Rezeptliste; es landet direkt dort. Oder: Rezept antippen, Tag und Mahlzeit wählen, dann **Zum Plan hinzufügen**. (Gedrückt halten und ziehen funktioniert auch.)
 - **Verschieben:** Ein geplantes Gericht in ein anderes Feld ziehen.
 - **Portionen:** Mit **− / +** unter dem Gericht legst du fest, für wie viele Personen gekocht wird. Die Einkaufsliste passt sich sofort an. Unter 1 geht es auf eine halbe Portion.

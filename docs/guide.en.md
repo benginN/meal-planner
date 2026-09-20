@@ -9,14 +9,14 @@ The screen has three columns. On a phone they become the **Recipes / Plan / Shop
 | Column | What it does |
 |---|---|
 | **Left – Recipes** | Every recipe. The search box looks at recipe names, tags and ingredients (type "chicken" and everything with chicken shows up). **Filters** opens and closes the category and tag chips; while closed, the active filter is shown on the button. |
-| **Middle – Weekly plan** | 7 days × lunch/dinner. This is where recipes go. |
+| **Middle – Weekly plan** | 7 days × breakfast/lunch/dinner. This is where recipes go. |
 | **Right – Shopping** | The ingredients of everything in the plan, scaled to your servings and grouped by aisle. |
 
 The language menu in the header switches everything between Türkçe, English and Deutsch: the interface, this guide, recipe names, ingredients, methods and the shopping list. The bundled recipes are translated into all three languages. A recipe you add yourself appears as you typed it in any language it has no translation for.
 
 ## Planning
 
-- **Add a dish:** Drag a recipe from the left and drop it on the lunch or dinner box of a day. A box can hold several dishes (soup + main, for example).
+- **Add a dish:** Drag a recipe from the left and drop it on the breakfast, lunch or dinner box of a day. A box can hold several dishes (soup + main, for example).
 - **On a phone:** Tap the **+** in a meal slot and pick from the recipe list; it is added straight to that slot. Or tap a recipe, pick the day and meal, then tap **Add to plan**. (Press-and-hold dragging also works.)
 - **Move:** Drag a planned dish to another box.
 - **Servings:** The **− / +** under a dish sets how many people you cook for. The shopping list updates immediately. Below 1 it drops to half a serving.

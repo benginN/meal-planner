@@ -85,6 +85,7 @@ api.post('/plan', async (c) => {
   const { profileId, week } = scope(c, body);
   const recipe = db.prepare('SELECT base_servings FROM recipes WHERE id = ?').get(Number(body.recipe_id));
   if (!recipe) throw new Error('Recipe not found');
+  if (!SLOTS.some((s) => s.id === body.slot)) throw new Error('Invalid meal slot');
   const res = db
     .prepare(
       `INSERT INTO plan_entries (profile_id, week_start, day, slot, recipe_id, servings, position)
@@ -102,6 +103,7 @@ api.patch('/plan/:id', async (c) => {
     db.prepare('UPDATE plan_entries SET servings = ? WHERE id = ?').run(servings, id);
   }
   if ('day' in body && 'slot' in body) {
+    if (!SLOTS.some((s) => s.id === body.slot)) throw new Error('Invalid meal slot');
     db.prepare(
       'UPDATE plan_entries SET day = ?, slot = ?, position = (SELECT COALESCE(MAX(position), 0) + 1 FROM plan_entries) WHERE id = ?'
     ).run(Number(body.day), body.slot, id);

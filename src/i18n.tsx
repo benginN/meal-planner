@@ -41,6 +41,7 @@ const tr = {
   noMatch: 'Eşleşen tarif yok.',
   servings: '{n} kişilik',
   minutes: '{n} dk',
+  breakfast: 'Kahvaltı',
   lunch: 'Öğle',
   dinner: 'Akşam',
   dropHint: 'Soldan bir tarifi sürükleyip istediğin güne bırak.',
@@ -148,6 +149,7 @@ const en: Record<Key, string> = {
   noMatch: 'No matching recipes.',
   servings: 'serves {n}',
   minutes: '{n} min',
+  breakfast: 'Breakfast',
   lunch: 'Lunch',
   dinner: 'Dinner',
   dropHint: 'Drag a recipe from the left and drop it on a day.',
@@ -253,6 +255,7 @@ const de: Record<Key, string> = {
   noMatch: 'Keine passenden Rezepte.',
   servings: '{n} Portionen',
   minutes: '{n} Min.',
+  breakfast: 'Frühstück',
   lunch: 'Mittag',
   dinner: 'Abend',
   dropHint: 'Ziehe ein Rezept von links auf den gewünschten Tag.',
@@ -341,7 +344,7 @@ const TERMS: Record<string, { en: string; de: string }> = {
   'Kuruyemiş & Kuru Meyve': { en: 'Nuts & Dried Fruit', de: 'Nüsse & Trockenfrüchte' }, Dondurulmuş: { en: 'Frozen', de: 'Tiefkühl' },
   İçecek: { en: 'Drinks', de: 'Getränke' }, Diğer: { en: 'Other', de: 'Sonstiges' },
   // tarif kategorileri
-  'Ana Yemek': { en: 'Mains', de: 'Hauptgerichte' }, Çorba: { en: 'Soup', de: 'Suppe' }, Salata: { en: 'Salads', de: 'Salate' },
+  'Ana Yemek': { en: 'Mains', de: 'Hauptgerichte' }, Kahvaltı: { en: 'Breakfast', de: 'Frühstück' }, Çorba: { en: 'Soup', de: 'Suppe' }, Salata: { en: 'Salads', de: 'Salate' },
   'Makarna & Pilav': { en: 'Pasta & Rice', de: 'Pasta & Reis' }, Zeytinyağlı: { en: 'Olive-oil dishes', de: 'Olivenölgerichte' },
   Atıştırmalık: { en: 'Snacks', de: 'Snacks' }, Tatlı: { en: 'Dessert', de: 'Dessert' }, 'Pilav & Bowl': { en: 'Rice & Bowls', de: 'Reis & Bowls' },
   'Noodle & Makarna': { en: 'Noodles & Pasta', de: 'Nudeln & Pasta' }, 'Dürüm, Taco & Burger': { en: 'Wraps, Tacos & Burgers', de: 'Wraps, Tacos & Burger' },
@@ -384,7 +387,7 @@ function makeI18n(lang: Lang, setLang: (l: Lang) => void) {
     servings: (n: number) => STRINGS[lang].servings.replace('{n}', number(n)),
     dayName: (date: Date) => new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(date),
     dayMonth: (date: Date, month: 'long' | 'short' = 'long') => new Intl.DateTimeFormat(locale, { day: 'numeric', month }).format(date),
-    slot: (id: string) => STRINGS[lang][id === 'ogle' ? 'lunch' : 'dinner'],
+    slot: (id: string) => STRINGS[lang][id === 'kahvalti' ? 'breakfast' : id === 'ogle' ? 'lunch' : 'dinner'],
   };
 }
 

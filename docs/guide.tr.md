@@ -9,14 +9,14 @@ Ekran üç sütundan oluşur. Telefonda bu sütunlar alttaki **Tarifler / Plan /
 | Sütun | Ne işe yarar |
 |---|---|
 | **Sol – Tarifler** | Bütün tarifler. Arama kutusu tarif adına, etikete ve malzemeye bakar ("tavuk" yazınca tavuklu her şey gelir). **Filtreler** butonu kategori ve etiket seçeneklerini açıp kapatır; kapalıyken seçili filtre butonun üzerinde yazar. |
-| **Orta – Haftalık plan** | 7 gün × öğle/akşam. Tarifleri buraya taşırsın. |
+| **Orta – Haftalık plan** | 7 gün × kahvaltı/öğle/akşam. Tarifleri buraya taşırsın. |
 | **Sağ – Alışveriş** | Plandaki yemeklerin malzemeleri, porsiyona göre hesaplanmış ve reyonlara ayrılmış halde. |
 
 Başlıktaki dil menüsü her şeyi Türkçe, English ve Deutsch arasında değiştirir: arayüz, rehber, tarif adları, malzemeler, yapılışlar ve alışveriş listesi. Hazır gelen tariflerin üç dilde de çevirisi vardır. Kendi eklediğin bir tarifin çevirisi yoksa diğer dillerde yazdığın haliyle görünür.
 
 ## Plan yapmak
 
-- **Yemek eklemek:** Soldaki tarifi tutup istediğin günün öğle ya da akşam kutusuna bırak. Bir kutuya birden fazla yemek konabilir (çorba + ana yemek gibi).
+- **Yemek eklemek:** Soldaki tarifi tutup istediğin günün kahvaltı, öğle ya da akşam kutusuna bırak. Bir kutuya birden fazla yemek konabilir (çorba + ana yemek gibi).
 - **Telefonda:** Plandaki bir öğünün **+** işaretine dokun, açılan tarif listesinden seç; tarif doğrudan o öğüne eklenir. Ya da tarife dokun, açılan pencerede gün ve öğünü seçip **Plana ekle**'ye bas. (Basılı tutarak sürüklemek de çalışır.)
 - **Taşımak:** Plandaki yemeği tutup başka bir kutuya bırak.
 - **Porsiyon:** Yemeğin altındaki **− / +** kaç kişilik pişeceğini belirler. Alışveriş listesi anında güncellenir. 1'in altına inince yarım porsiyona düşer.

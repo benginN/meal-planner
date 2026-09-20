@@ -161,7 +161,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 
 /* --- Plan */
 .plan-grid { display: flex; flex-direction: column; gap: 6px; flex: 1 0 auto; }
-.plan-row { display: grid; grid-template-columns: 104px 1fr 1fr; gap: 6px; flex: 1 0 auto; min-height: 64px; }
+.plan-row { display: grid; grid-template-columns: 104px repeat(3, minmax(0, 1fr)); gap: 6px; flex: 1 0 auto; min-height: 64px; }
 .plan-head { flex: none; min-height: 0; padding: 2px 0; line-height: 1.4; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); text-align: center; }
 .day-label { display: flex; flex-direction: column; justify-content: center; padding-left: 6px; border-left: 3px solid transparent; }
 .day-label small { color: var(--muted); }
@@ -182,12 +182,13 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .entry {
   padding: 5px 8px; border-radius: 7px; background: var(--surface); border: 1px solid var(--border);
   border-left: 3px solid var(--accent); cursor: grab; touch-action: manipulation; user-select: none;
+  position: relative;
 }
-.entry-name { border: 0; background: none; padding: 0; font-weight: 600; text-align: left; cursor: pointer; }
+.entry-name { border: 0; background: none; padding: 0 20px 0 0; font-weight: 600; text-align: left; cursor: pointer; }
 .entry-name:hover { text-decoration: underline; }
 .entry-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
 .entry-controls button { padding: 0; width: 24px; height: 24px; line-height: 1; border-radius: 6px; }
-.entry-controls .remove { margin-left: auto; border-color: transparent; background: none; color: var(--muted); font-size: 1.1rem; }
+.entry-controls .remove { position: absolute; top: 3px; right: 3px; border-color: transparent; background: none; color: var(--muted); font-size: 1.1rem; }
 .entry-controls .remove:hover { color: var(--danger); }
 
 /* --- Shopping */
@@ -282,6 +283,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .guide th, .guide td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; vertical-align: top; }
 .guide th { background: var(--surface-2); }
 
+/* Three meal columns need room: on mid-size screens the side panels give some up. */
+@media (min-width: 961px) and (max-width: 1400px) {
+  .columns { grid-template-columns: 250px minmax(0, 1fr) 290px; gap: 10px; }
+  .plan-row { grid-template-columns: 92px repeat(3, minmax(0, 1fr)); }
+}
+
 /* --- Mobile: columns become tabs */
 @media (max-width: 960px) {
   /* iOS zooms the page when focusing a field with text below 16px and never zooms back. */
@@ -335,7 +342,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   .day-macros { flex-direction: row; margin-top: 0; gap: 4px; }
   .cell { flex-direction: row; gap: 8px; align-items: flex-start; padding: 8px 10px 8px 12px; border: 0; border-top: 1px solid var(--border); border-radius: 0; background: none; }
   .cell.over { background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
-  .slot-label { display: block; flex: none; width: 54px; padding-top: 9px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .slot-label { display: block; flex: none; width: 76px; padding-top: 9px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
   .cell-body { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
   .wide-only { display: none; }
   .narrow-only { display: inline; }
@@ -344,7 +351,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   .entry-name { min-height: 0; font-size: 0.98rem; }
   .entry-controls { margin-top: 6px; gap: 10px; font-size: 0.88rem; }
   .entry-controls button { width: 34px; height: 34px; min-height: 0; font-size: 1.1rem; }
-  .entry-controls .remove { font-size: 1.4rem; }
+  .entry-controls .remove { font-size: 1.4rem; top: 2px; right: 2px; }
+  .entry-name { padding-right: 34px; }
   .cell-add { display: block; width: 100%; min-height: 36px; padding: 0; border-style: dashed; background: none; color: var(--muted); font-size: 1.2rem; line-height: 1; }
   .entry ~ .cell-add { width: 44px; align-self: flex-start; min-height: 30px; font-size: 1rem; }
 
@@ -390,12 +398,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   .print-only table { width: 100%; border-collapse: collapse; }
   .print-only th, .print-only td { border: 1px solid #bbb; padding: 5px 8px; text-align: left; vertical-align: top; }
   .print-only thead th { background: #f3eee6; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.04em; }
-  .print-only tbody th { width: 17%; background: #faf7f2; }
+  .print-only tbody th { width: 13%; background: #faf7f2; }
   .print-only tbody tr { break-inside: avoid; }
   .print-only small { display: block; color: #555; font-weight: normal; font-size: 8.5pt; }
   .print-only small.inline { display: inline; }
   .print-entry + .print-entry { margin-top: 4px; padding-top: 4px; border-top: 1px dotted #ccc; }
-  .print-only .print-total { width: 16%; text-align: right; white-space: nowrap; }
+  .print-only .print-total { width: 14%; text-align: right; white-space: nowrap; }
   .print-only td.print-total strong { color: #c2410c; }
   .print-only tfoot th { text-align: right; background: #f3eee6; }
   .print-only tfoot td { background: #f3eee6; }
