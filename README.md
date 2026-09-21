@@ -1,12 +1,14 @@
 # 🍲 Meal Planner
 
-A small self-hosted weekly meal planner. Drag recipes into a breakfast/lunch/dinner grid, adjust servings, and the shopping list writes itself — grouped by aisle, with ingredients merged across recipes.
+A small self-hosted weekly meal planner. Drag recipes into a breakfast/lunch/dinner grid, adjust servings, and the shopping list writes itself — grouped by aisle, per dish or day by day, with ingredients merged across recipes.
 
 - **Weekly plan** — 7 days × breakfast/lunch/dinner, drag and drop on desktop, tap-to-add on phones; every week is saved automatically and can be copied forward
 - **Shopping list** — scaled by servings, unit-aware merging (g/kg, ml/l), staples hidden, "have it at home", manual extras
+- **Three groupings** — by aisle, per dish, or day by day; one basket behind all three, so a tick subtracts that share's amount everywhere else and a partly bought row shows what is left
 - **Nutrition** — kcal and macros per serving, daily totals and a weekly daily average
 - **Profiles** — shared recipes, separate plans and lists per person or household
-- **PDF / print** — plan table with calories plus the shopping list on A4
+- **PDF / print** — plan table with calories plus the shopping list on A4; on phones the button opens a preview page (`?yazdir=1`), because iOS gives a home-screen web app no print dialog
+- **View only** — one tap locks the plan so scrolling on a phone cannot drag a meal out of its slot
 - **Trilingual** — UI, guide and recipe content in English, Deutsch and Türkçe
 - **Glance widget** — a JSON endpoint for a [Glance](https://github.com/glanceapp/glance) `custom-api` widget
 - One container, SQLite, no external services, works on a Raspberry Pi

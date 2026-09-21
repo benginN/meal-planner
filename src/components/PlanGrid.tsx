@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useEffect, useRef } from 'react';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import type { PlanEntry, Recipe, SlotId } from '../types';
@@ -12,16 +13,19 @@ interface Props {
   onRemove: (entry: PlanEntry) => void;
   onOpen: (recipe: Recipe) => void;
   onPick: (day: number, slot: SlotId) => void;
+  /** Read-only: the plan cannot be dragged or edited, so scrolling it never moves a meal. */
+  viewOnly: boolean;
 }
 
-type EntryProps = Pick<Props, 'onServings' | 'onRemove'> & { entry: PlanEntry; onOpen: () => void };
+type EntryProps = Pick<Props, 'onServings' | 'onRemove' | 'viewOnly'> & { entry: PlanEntry; onOpen: () => void };
 
-function Entry({ entry, onServings, onRemove, onOpen }: EntryProps) {
+function Entry({ entry, onServings, onRemove, onOpen, viewOnly }: EntryProps) {
   const { t, servings, pick } = useI18n();
   const name = pick(entry, 'recipe_name');
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `entry-${entry.id}`,
     data: { type: 'entry', entry, label: name },
+    disabled: viewOnly,
   });
   // Pressing the buttons must not start a drag.
   const stop = (e: React.SyntheticEvent) => e.stopPropagation();
@@ -33,11 +37,11 @@ function Entry({ entry, onServings, onRemove, onOpen }: EntryProps) {
     <div ref={setNodeRef} {...attributes} {...listeners} className={`entry${isDragging ? ' dragging' : ''}`}>
       <button className="entry-name" onClick={onOpen}>{name}</button>
       <div className="entry-controls" onPointerDown={stop} onTouchStart={stop}>
-        <button aria-label={t('decServings')} disabled={entry.servings <= 0.5} onClick={() => onServings(entry, less)}>−</button>
+        {!viewOnly && <button aria-label={t('decServings')} disabled={entry.servings <= 0.5} onClick={() => onServings(entry, less)}>−</button>}
         <span>{servings(entry.servings)}</span>
-        <button aria-label={t('incServings')} onClick={() => onServings(entry, more)}>+</button>
+        {!viewOnly && <button aria-label={t('incServings')} onClick={() => onServings(entry, more)}>+</button>}
         {entry.kcal != null && <span className="kcal-chip" title={t('perServing')}>{Math.round(entry.kcal)} kcal</span>}
-        <button className="remove" aria-label={t('removeFromPlan')} onClick={() => onRemove(entry)}>×</button>
+        {!viewOnly && <button className="remove" aria-label={t('removeFromPlan')} onClick={() => onRemove(entry)}>×</button>}
       </div>
     </div>
   );
@@ -54,7 +58,7 @@ function Cell({ day, slot, children }: { day: number; slot: SlotId; children: Re
 
 const sum = (list: PlanEntry[], field: 'kcal' | 'protein_g') => list.reduce((total, e) => total + (e[field] ?? 0), 0);
 
-export default function PlanGrid({ week, plan, recipes, onServings, onRemove, onOpen, onPick }: Props) {
+export default function PlanGrid({ week, plan, recipes, onServings, onRemove, onOpen, onPick, viewOnly }: Props) {
   const { t, slot, dayName, dayMonth } = useI18n();
   const today = isoDate(new Date());
   const todayRow = useRef<HTMLDivElement>(null);
@@ -89,7 +93,7 @@ export default function PlanGrid({ week, plan, recipes, onServings, onRemove, on
           </span>
         </div>
       )}
-      <div className="plan-grid">
+      <div className="plan-grid" style={{ '--slot-count': SLOTS.length } as React.CSSProperties}>
         <div className="plan-row plan-head">
           <span />
           {SLOTS.map((s) => <span key={s.id}>{slot(s.id)}</span>)}
@@ -120,6 +124,7 @@ export default function PlanGrid({ week, plan, recipes, onServings, onRemove, on
                     <Entry
                       key={e.id}
                       entry={e}
+                      viewOnly={viewOnly}
                       onServings={onServings}
                       onRemove={onRemove}
                       onOpen={() => {
@@ -128,7 +133,7 @@ export default function PlanGrid({ week, plan, recipes, onServings, onRemove, on
                       }}
                     />
                   ))}
-                  <button className="cell-add" aria-label={`${t('addHere')}: ${dayName(parseIso(date))} · ${slot(s.id)}`} onClick={() => onPick(day, s.id as SlotId)}>+</button>
+                  {!viewOnly && <button className="cell-add" aria-label={`${t('addHere')}: ${dayName(parseIso(date))} · ${slot(s.id)}`} onClick={() => onPick(day, s.id as SlotId)}>+</button>}
                   </div>
                 </Cell>
               ))}
@@ -136,7 +141,11 @@ export default function PlanGrid({ week, plan, recipes, onServings, onRemove, on
           );
         })}
       </div>
-      {plan.length === 0 && <p className="empty"><span className="wide-only">{t('dropHint')}</span><span className="narrow-only">{t('tapHint')}</span></p>}
+      {plan.length === 0 && (
+        <p className="empty">
+          {viewOnly ? t('viewOnlyEmpty') : <><span className="wide-only">{t('dropHint')}</span><span className="narrow-only">{t('tapHint')}</span></>}
+        </p>
+      )}
     </section>
   );
 }

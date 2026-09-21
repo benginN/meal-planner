@@ -40,7 +40,14 @@ export interface Recipe {
   ingredients: RecipeIngredient[];
 }
 
-export type SlotId = 'kahvalti' | 'ogle' | 'aksam';
+export interface Collection {
+  id: number;
+  name: string;
+  position: number;
+  recipe_ids: number[];
+}
+
+export type SlotId = 'kahvalti' | 'ogle' | 'ara' | 'aksam';
 
 export interface PlanEntry {
   id: number;
@@ -56,6 +63,23 @@ export interface PlanEntry {
   protein_g: number | null;
 }
 
+export interface Amount {
+  amount: number;
+  unit: string;
+}
+
+// One planned meal's share of an ingredient. The list is regrouped from these, and `bought` is where
+// a tick actually lives — the aisle, dish and day views are three roll-ups of the same shares.
+export interface ShoppingSource {
+  entry_id: number;
+  day: number;
+  slot: SlotId;
+  position: number;
+  recipe_id: number;
+  bought: boolean;
+  amounts: Amount[];
+}
+
 export interface ShoppingItem {
   ingredient_id: number;
   name: string;
@@ -63,10 +87,12 @@ export interface ShoppingItem {
   name_de: string | null;
   category: string;
   is_staple: boolean;
-  checked: boolean;
   excluded: boolean;
-  amounts: { amount: number; unit: string }[];
+  amounts: Amount[];
   recipe_ids: number[];
+  /** True only when every share below is bought. */
+  checked: boolean;
+  sources: ShoppingSource[];
 }
 
 export interface ManualItem {

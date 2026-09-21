@@ -1,0 +1,31 @@
+/* Rules for the printed page (PDF). They are not bundled: PrintStyles injects them as a
+   <style media="print"> in the app, and as media="all" on the ?yazdir=1 preview page, so the
+   preview on screen and the paper come from this one source. */
+@page { size: A4; margin: 14mm; }
+html, body { background: #fff; color: #000; font-size: 10.5pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.screen-only { display: none !important; }
+.print-only { display: block; }
+.print-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 2.5px solid #c2410c; padding-bottom: 6px; margin-bottom: 12px; }
+.print-only h1 { font-size: 18pt; }
+.print-only h2 { font-size: 14pt; margin: 20px 0 8px; padding-bottom: 4px; border-bottom: 1.5px solid #c2410c; break-after: avoid; }
+.print-only h3 { color: #444; margin-bottom: 3px; break-after: avoid; }
+.print-sub { margin: 0; color: #444; font-size: 11pt; }
+.print-only table { width: 100%; border-collapse: collapse; }
+.print-only th, .print-only td { border: 1px solid #bbb; padding: 5px 8px; text-align: left; vertical-align: top; }
+.print-only thead th { background: #f3eee6; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.04em; }
+.print-only tbody th { width: 13%; background: #faf7f2; }
+.print-only tbody tr { break-inside: avoid; }
+.print-only small { display: block; color: #555; font-weight: normal; font-size: 8.5pt; }
+.print-only small.inline { display: inline; }
+.print-entry + .print-entry { margin-top: 4px; padding-top: 4px; border-top: 1px dotted #ccc; }
+.print-only .print-total { width: 14%; text-align: right; white-space: nowrap; }
+.print-only td.print-total strong { color: #c2410c; }
+.print-only tfoot th { text-align: right; background: #f3eee6; }
+.print-only tfoot td { background: #f3eee6; }
+.print-note { margin: 5px 0 0; font-size: 8.5pt; color: #555; }
+.print-shopping { columns: 2; column-gap: 24px; }
+.print-group { break-inside: avoid; margin-bottom: 10px; }
+.print-group li { padding: 1.5px 0; }
+.print-group h3 small { display: block; font-weight: 400; font-size: 8pt; text-transform: none; letter-spacing: 0; color: #666; }
+.print-group li::first-letter { text-transform: uppercase; }
+.print-group li.checked { text-decoration: line-through; color: #777; }

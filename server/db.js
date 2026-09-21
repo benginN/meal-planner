@@ -1,11 +1,22 @@
 import { DatabaseSync } from 'node:sqlite';
 import { mkdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { SLOTS } from '../shared/format.js';
 
 const DATA_DIR = process.env.DATA_DIR || '/data';
 mkdirSync(DATA_DIR, { recursive: true });
 
 export const db = new DatabaseSync(join(DATA_DIR, 'yemek.db'));
+
+const had = (table) =>
+  !!db.prepare("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?").get(table);
+// Read before the schema below creates it: tells a fresh install from one that has to be migrated.
+const hadBought = had('shopping_bought');
+const hadState = had('shopping_state');
+
+// The slot list lives in shared/format.js; the CHECK constraint is derived from it so that adding a
+// meal there cannot leave the table behind.
+const SLOT_CHECK = `CHECK (slot IN (${SLOTS.map((s) => `'${s.id}'`).join(', ')}))`;
 
 db.exec(`
   PRAGMA journal_mode = WAL;
@@ -56,7 +67,7 @@ db.exec(`
     profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
     week_start TEXT NOT NULL,
     day INTEGER NOT NULL CHECK (day BETWEEN 0 AND 6),
-    slot TEXT NOT NULL CHECK (slot IN ('kahvalti', 'ogle', 'aksam')),
+    slot TEXT NOT NULL ${SLOT_CHECK},
     recipe_id INTEGER NOT NULL REFERENCES recipes(id) ON DELETE CASCADE,
     servings REAL NOT NULL,
     position INTEGER NOT NULL DEFAULT 0
@@ -72,12 +83,40 @@ db.exec(`
     PRIMARY KEY (profile_id, week_start, ingredient_id)
   );
 
+  -- What is already in the basket, held at the finest grain there is: one planned meal's share of one
+  -- ingredient. The list can be grouped by aisle, per dish or per day, and those are three views of
+  -- the same shopping trip — so a tick is never stored against a view. Ticking a row marks every
+  -- share it covers, and each view's box and amount are the roll-up of the shares under it: tick
+  -- 500 g of blueberries in the aisle view and both days go with it; tick Monday's 250 g and the
+  -- aisle row is left holding 250 g. The entry reference cascades, so clearing a week or dropping a
+  -- meal takes its shares with it and a recycled plan id cannot inherit an old tick.
+  CREATE TABLE IF NOT EXISTS shopping_bought (
+    entry_id INTEGER NOT NULL REFERENCES plan_entries(id) ON DELETE CASCADE,
+    ingredient_id INTEGER NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
+    PRIMARY KEY (entry_id, ingredient_id)
+  );
+
   CREATE TABLE IF NOT EXISTS shopping_manual (
     id INTEGER PRIMARY KEY,
     profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
     week_start TEXT NOT NULL,
     text TEXT NOT NULL,
     checked INTEGER NOT NULL DEFAULT 0
+  );
+
+  -- Collections are the cook's own shelves ("Sevdiklerim", "Hızlı"): free-form, unlike a recipe's
+  -- category (what the dish is) and its tags (what it is made of). Recipes are shared between
+  -- profiles, so collections are too.
+  CREATE TABLE IF NOT EXISTS collections (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    position INTEGER NOT NULL DEFAULT 0
+  );
+
+  CREATE TABLE IF NOT EXISTS recipe_collections (
+    recipe_id INTEGER NOT NULL REFERENCES recipes(id) ON DELETE CASCADE,
+    collection_id INTEGER NOT NULL REFERENCES collections(id) ON DELETE CASCADE,
+    PRIMARY KEY (recipe_id, collection_id)
   );
 `);
 
@@ -98,11 +137,13 @@ for (const [table, columns] of Object.entries(ADDED_COLUMNS)) {
   }
 }
 
-// Breakfast was added after the first release. SQLite cannot alter a CHECK constraint in place, so a
-// database created with the old two-slot constraint gets its plan table rebuilt once (rows are kept;
-// nothing references plan_entries, so no foreign keys are affected).
+// Meal slots have been added after releases (breakfast, later the afternoon snack). SQLite cannot
+// alter a CHECK constraint in place, so a database whose plan table predates a slot gets rebuilt once.
+// Rows keep their ids, but shopping_bought references them: foreign keys are switched off for the
+// rebuild (SQLite's own recipe for this) so the DROP does not cascade the basket away.
 const planSql = db.prepare("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'plan_entries'").get().sql;
-if (!planSql.includes("'kahvalti'")) {
+if (SLOTS.some((s) => !planSql.includes(`'${s.id}'`))) {
+  db.exec('PRAGMA foreign_keys = OFF');
   db.exec('BEGIN');
   try {
     db.exec(`
@@ -111,7 +152,7 @@ if (!planSql.includes("'kahvalti'")) {
         profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
         week_start TEXT NOT NULL,
         day INTEGER NOT NULL CHECK (day BETWEEN 0 AND 6),
-        slot TEXT NOT NULL CHECK (slot IN ('kahvalti', 'ogle', 'aksam')),
+        slot TEXT NOT NULL ${SLOT_CHECK},
         recipe_id INTEGER NOT NULL REFERENCES recipes(id) ON DELETE CASCADE,
         servings REAL NOT NULL,
         position INTEGER NOT NULL DEFAULT 0
@@ -127,7 +168,27 @@ if (!planSql.includes("'kahvalti'")) {
     db.exec('ROLLBACK');
     throw err;
   }
+  db.exec('PRAGMA foreign_keys = ON');
 }
+
+// Ticks used to be stored per ingredient for the whole week (shopping_state.checked), and briefly per
+// view (shopping_scope_state). Both are replaced by the per-share table: a week-wide tick meant every
+// share of that ingredient was bought, so that is what it becomes. Runs once, when the new table is
+// first created.
+if (!hadBought && hadState) {
+  const moved = db
+    .prepare(
+      `INSERT OR IGNORE INTO shopping_bought (entry_id, ingredient_id)
+       SELECT p.id, s.ingredient_id
+       FROM shopping_state s
+       JOIN plan_entries p ON p.profile_id = s.profile_id AND p.week_start = s.week_start
+       JOIN recipe_ingredients ri ON ri.recipe_id = p.recipe_id AND ri.ingredient_id = s.ingredient_id
+       WHERE s.checked = 1`
+    )
+    .run();
+  if (Number(moved.changes) > 0) console.log(`Shopping ticks migrated: ${moved.changes} share(s)`);
+}
+if (had('shopping_scope_state')) db.exec('DROP TABLE shopping_scope_state');
 
 if (db.prepare('SELECT COUNT(*) AS n FROM profiles').get().n === 0) {
   db.prepare('INSERT INTO profiles (name, color) VALUES (?, ?)').run('Ortak', '#c2410c');

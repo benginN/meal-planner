@@ -43,6 +43,7 @@ const tr = {
   minutes: '{n} dk',
   breakfast: 'Kahvaltı',
   lunch: 'Öğle',
+  snack: 'Ara Öğün',
   dinner: 'Akşam',
   dropHint: 'Soldan bir tarifi sürükleyip istediğin güne bırak.',
   decServings: 'Porsiyonu azalt',
@@ -56,6 +57,17 @@ const tr = {
   makeStaple: 'Temel malzeme yap (hep gizle)',
   unmakeStaple: 'Temel malzeme olmasın',
   aisle: 'Reyon',
+  groupBy: 'Listeyi grupla',
+  groupAisle: 'Reyon',
+  groupMeal: 'Yemek',
+  groupDay: 'Gün',
+  partlyBought: 'Bir kısmı alındı: {total} gerekiyordu, {left} kaldı',
+  ofTotal: '{total} içinden',
+  viewOnlyOffHint: 'Düzenleme açık — dokun, planı kilitle',
+  viewOnlyOnHint: 'Plan kilitli (salt görüntüleme) — dokun, düzenlemeyi aç',
+  viewOnlyEmpty: 'Bu hafta plan boş. Düzenlemeyi açmak için üstteki 🔒 düğmesine dokun.',
+  printHint: 'Açılmazsa: Paylaş ⬆︎ → Yazdır → parmakla büyüt → PDF olarak kaydet.',
+  printHintStandalone: 'Ana ekrandan açılan uygulamada iOS yazdırmayı kapatır. Bu adresi Safari’de aç, orada Paylaş ⬆︎ → Yazdır:',
   extra: 'Ekstra',
   addToListPlaceholder: 'Listeye ekle (örn. peçete)',
   add: 'Ekle',
@@ -114,6 +126,17 @@ const tr = {
   dailyTotal: 'Günlük toplam',
   printTitle: 'Haftalık Yemek Planı',
   printShopping: 'Alışveriş Listesi',
+  collections: 'Koleksiyonlar',
+  collectionsHint: 'Kendi raflarım: “Sevdiklerim”, “Hızlı”… Bir tarifi rafa koymak için tarif kartındaki ⋯ düğmesini kullan.',
+  collectionName: 'Koleksiyon adı',
+  newCollection: 'Yeni koleksiyon',
+  newCollectionPlaceholder: 'Sevdiklerim',
+  editCollections: 'Koleksiyonları düzenle',
+  addToCollection: 'Koleksiyona ekle',
+  noCollections: 'Henüz koleksiyon yok.',
+  emptyCollection: 'Bu koleksiyonda tarif yok.',
+  recipeCount: '{n} tarif',
+  confirmDeleteCollection: '“{name}” koleksiyonu silinsin mi? Tarifler durur, yalnız koleksiyon kalkar.',
 };
 
 type Key = keyof typeof tr;
@@ -151,6 +174,7 @@ const en: Record<Key, string> = {
   minutes: '{n} min',
   breakfast: 'Breakfast',
   lunch: 'Lunch',
+  snack: 'Snack',
   dinner: 'Dinner',
   dropHint: 'Drag a recipe from the left and drop it on a day.',
   decServings: 'Fewer servings',
@@ -164,6 +188,17 @@ const en: Record<Key, string> = {
   makeStaple: 'Mark as staple (always hide)',
   unmakeStaple: 'No longer a staple',
   aisle: 'Aisle',
+  groupBy: 'Group the list',
+  groupAisle: 'Aisle',
+  groupMeal: 'Dish',
+  groupDay: 'Day',
+  partlyBought: 'Partly bought: {total} needed, {left} still missing',
+  ofTotal: 'of {total}',
+  viewOnlyOffHint: 'Editing on — tap to lock the plan',
+  viewOnlyOnHint: 'Plan locked (view only) — tap to edit',
+  viewOnlyEmpty: 'No plan this week. Tap the 🔒 button above to start editing.',
+  printHint: 'If nothing opens: Share ⬆︎ → Print → pinch to zoom → save as PDF.',
+  printHintStandalone: 'iOS gives a home-screen web app no print dialog. Open this address in Safari, then Share ⬆︎ → Print:',
   extra: 'Extras',
   addToListPlaceholder: 'Add to list (e.g. napkins)',
   add: 'Add',
@@ -222,6 +257,17 @@ const en: Record<Key, string> = {
   dailyTotal: 'Daily total',
   printTitle: 'Weekly Meal Plan',
   printShopping: 'Shopping List',
+  collections: 'Collections',
+  collectionsHint: 'Your own shelves: “Favourites”, “Quick”… Use the ⋯ button on a recipe card to put it on a shelf.',
+  collectionName: 'Collection name',
+  newCollection: 'New collection',
+  newCollectionPlaceholder: 'Favourites',
+  editCollections: 'Edit collections',
+  addToCollection: 'Add to collection',
+  noCollections: 'No collections yet.',
+  emptyCollection: 'No recipes in this collection.',
+  recipeCount: '{n} recipes',
+  confirmDeleteCollection: 'Delete the collection “{name}”? The recipes stay, only the shelf goes.',
 };
 
 const de: Record<Key, string> = {
@@ -257,6 +303,7 @@ const de: Record<Key, string> = {
   minutes: '{n} Min.',
   breakfast: 'Frühstück',
   lunch: 'Mittag',
+  snack: 'Zwischenmahlzeit',
   dinner: 'Abend',
   dropHint: 'Ziehe ein Rezept von links auf den gewünschten Tag.',
   decServings: 'Weniger Portionen',
@@ -270,6 +317,17 @@ const de: Record<Key, string> = {
   makeStaple: 'Als Grundzutat markieren (immer ausblenden)',
   unmakeStaple: 'Keine Grundzutat mehr',
   aisle: 'Abteilung',
+  groupBy: 'Liste gruppieren',
+  groupAisle: 'Abteilung',
+  groupMeal: 'Gericht',
+  groupDay: 'Tag',
+  partlyBought: 'Teilweise gekauft: {total} nötig, {left} fehlen noch',
+  ofTotal: 'von {total}',
+  viewOnlyOffHint: 'Bearbeiten an — tippen, um den Plan zu sperren',
+  viewOnlyOnHint: 'Plan gesperrt (nur ansehen) — tippen zum Bearbeiten',
+  viewOnlyEmpty: 'Diese Woche ohne Plan. Zum Bearbeiten oben auf 🔒 tippen.',
+  printHint: 'Öffnet sich nichts: Teilen ⬆︎ → Drucken → aufziehen → als PDF sichern.',
+  printHintStandalone: 'Als Web-App vom Home-Bildschirm bietet iOS keinen Druckdialog. Diese Adresse in Safari öffnen, dann Teilen ⬆︎ → Drucken:',
   extra: 'Extras',
   addToListPlaceholder: 'Zur Liste hinzufügen (z. B. Servietten)',
   add: 'Hinzufügen',
@@ -328,6 +386,17 @@ const de: Record<Key, string> = {
   dailyTotal: 'Tagessumme',
   printTitle: 'Wochenplan',
   printShopping: 'Einkaufsliste',
+  collections: 'Sammlungen',
+  collectionsHint: 'Deine eigenen Regale: „Favoriten“, „Schnell“… Mit dem ⋯ auf einer Rezeptkarte legst du ein Rezept hinein.',
+  collectionName: 'Name der Sammlung',
+  newCollection: 'Neue Sammlung',
+  newCollectionPlaceholder: 'Favoriten',
+  editCollections: 'Sammlungen bearbeiten',
+  addToCollection: 'Zur Sammlung hinzufügen',
+  noCollections: 'Noch keine Sammlungen.',
+  emptyCollection: 'Keine Rezepte in dieser Sammlung.',
+  recipeCount: '{n} Rezepte',
+  confirmDeleteCollection: 'Sammlung „{name}“ löschen? Die Rezepte bleiben, nur das Regal verschwindet.',
 };
 
 const STRINGS: Record<Lang, Record<Key, string>> = { tr, en, de };
@@ -346,7 +415,7 @@ const TERMS: Record<string, { en: string; de: string }> = {
   // tarif kategorileri
   'Ana Yemek': { en: 'Mains', de: 'Hauptgerichte' }, Kahvaltı: { en: 'Breakfast', de: 'Frühstück' }, Çorba: { en: 'Soup', de: 'Suppe' }, Salata: { en: 'Salads', de: 'Salate' },
   'Makarna & Pilav': { en: 'Pasta & Rice', de: 'Pasta & Reis' }, Zeytinyağlı: { en: 'Olive-oil dishes', de: 'Olivenölgerichte' },
-  Atıştırmalık: { en: 'Snacks', de: 'Snacks' }, Tatlı: { en: 'Dessert', de: 'Dessert' }, 'Pilav & Bowl': { en: 'Rice & Bowls', de: 'Reis & Bowls' },
+  Atıştırmalık: { en: 'Snacks', de: 'Snacks' }, 'Ara Öğün': { en: 'Between meals', de: 'Zwischenmahlzeit' }, Tatlı: { en: 'Dessert', de: 'Dessert' }, 'Pilav & Bowl': { en: 'Rice & Bowls', de: 'Reis & Bowls' },
   'Noodle & Makarna': { en: 'Noodles & Pasta', de: 'Nudeln & Pasta' }, 'Dürüm, Taco & Burger': { en: 'Wraps, Tacos & Burgers', de: 'Wraps, Tacos & Burger' },
   'Köri & Sulu Yemek': { en: 'Curries & Stews', de: 'Currys & Eintöpfe' },
   // etiketler
@@ -360,6 +429,10 @@ function detectLang(): Lang {
   const nav = (navigator.language || '').slice(0, 2);
   return nav === 'de' || nav === 'en' ? nav : 'tr';
 }
+
+// Öğün kimliği (veride Türkçe) -> çeviri anahtarı. Yeni öğün eklenirse shared/format.js'teki
+// SLOTS ile birlikte burası da genişler.
+const SLOT_KEY: Record<string, Key> = { kahvalti: 'breakfast', ogle: 'lunch', ara: 'snack', aksam: 'dinner' };
 
 function makeI18n(lang: Lang, setLang: (l: Lang) => void) {
   const locale = LOCALES[lang];
@@ -387,7 +460,7 @@ function makeI18n(lang: Lang, setLang: (l: Lang) => void) {
     servings: (n: number) => STRINGS[lang].servings.replace('{n}', number(n)),
     dayName: (date: Date) => new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(date),
     dayMonth: (date: Date, month: 'long' | 'short' = 'long') => new Intl.DateTimeFormat(locale, { day: 'numeric', month }).format(date),
-    slot: (id: string) => STRINGS[lang][id === 'kahvalti' ? 'breakfast' : id === 'ogle' ? 'lunch' : 'dinner'],
+    slot: (id: string) => STRINGS[lang][SLOT_KEY[id] ?? 'dinner'],
   };
 }
 

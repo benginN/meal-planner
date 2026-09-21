@@ -9,6 +9,9 @@ interface Props {
   onProfile: (id: number) => void;
   onManageProfiles: () => void;
   onGuide: () => void;
+  onPrint: () => void;
+  viewOnly: boolean;
+  onViewOnly: (on: boolean) => void;
   week: string;
   onWeek: (week: string) => void;
   weeks: WeekSummary[];
@@ -66,7 +69,7 @@ export default function Header(p: Props) {
             ))}
           </select>
         )}
-        <button className="primary" onClick={closing(() => window.print())}>{t('print')}</button>
+        <button className="primary" onClick={closing(p.onPrint)}>{t('print')}</button>
         <button onClick={closing(p.onGuide)}>{t('guide')}</button>
         <select value={lang} onChange={(e) => setLang(e.target.value as Lang)} aria-label={t('language')}>
           {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
@@ -78,6 +81,15 @@ export default function Header(p: Props) {
       </div>
 
       <div className="header-quick">
+        <button
+          className={`view-only${p.viewOnly ? ' active' : ''}`}
+          aria-pressed={p.viewOnly}
+          title={p.viewOnly ? t('viewOnlyOnHint') : t('viewOnlyOffHint')}
+          aria-label={p.viewOnly ? t('viewOnlyOnHint') : t('viewOnlyOffHint')}
+          onClick={() => p.onViewOnly(!p.viewOnly)}
+        >
+          <span aria-hidden="true">{p.viewOnly ? '🔒' : '✏️'}</span>
+        </button>
         <select className="profile-select" value={p.profileId} onChange={(e) => p.onProfile(Number(e.target.value))} aria-label={t('profile')}>
           {p.profiles.map((pr) => (
             <option key={pr.id} value={pr.id}>{pr.name}</option>

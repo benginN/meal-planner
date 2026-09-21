@@ -2,22 +2,23 @@ import type { PlanEntry, Profile, Shopping } from '../types';
 import { SLOTS, addDays, parseIso } from '../../shared/format.js';
 import { useWeekLabel } from './Header';
 import { useI18n } from '../i18n';
-import { groupByCategory } from './ShoppingPanel';
+import type { ShopGroup } from '../shopping-view';
 
 interface Props {
   profile?: Profile;
   week: string;
   plan: PlanEntry[];
   shopping: Shopping;
+  // The printed list follows whatever grouping is on screen (aisle / per meal / per day).
+  groups: ShopGroup[];
 }
 
 const sum = (list: PlanEntry[], field: 'kcal' | 'protein_g') => list.reduce((total, e) => total + (e[field] ?? 0), 0);
 
 // Only visible when printing (saving as PDF).
-export default function PrintView({ profile, week, plan, shopping }: Props) {
-  const { t, term, amount, slot, dayName, dayMonth, servings, pick } = useI18n();
+export default function PrintView({ profile, week, plan, shopping, groups }: Props) {
+  const { t, amount, slot, dayName, dayMonth, servings, pick } = useI18n();
   const weekLabel = useWeekLabel();
-  const items = shopping.items.filter((i) => !i.excluded && !i.is_staple);
   const days = Array.from({ length: 7 }, (_, day) => plan.filter((e) => e.day === day));
   const counted = days.filter((d) => sum(d, 'kcal') > 0);
   const hasKcal = counted.length > 0;
@@ -79,16 +80,25 @@ export default function PrintView({ profile, week, plan, shopping }: Props) {
 
       <h2>{t('printShopping')}</h2>
       <div className="print-shopping">
-        {groupByCategory(items).map(([category, list]) => (
-          <div key={category} className="print-group">
-            <h3>{term(category)}</h3>
-            <ul>{list.map((i) => <li key={i.ingredient_id}>☐ {pick(i, 'name')}{i.amounts.length > 0 && ` — ${i.amounts.map((a) => amount(a.amount, a.unit)).join(' + ')}`}</li>)}</ul>
+        {groups.map((group) => (
+          <div key={group.key} className="print-group">
+            <h3>{group.title}{group.subtitle && <small> {group.subtitle}</small>}</h3>
+            <ul>{group.rows.map((row) => {
+              const left = row.partial ? row.remaining : row.total;
+              return (
+                <li key={row.key} className={row.checked ? 'checked' : ''}>
+                  {row.checked ? '☑' : '☐'} {pick(row.item, 'name')}
+                  {left.length > 0 && ` — ${left.map((a) => amount(a.amount, a.unit)).join(' + ')}`}
+                  {row.partial && ` (${t('ofTotal', { total: row.total.map((a) => amount(a.amount, a.unit)).join(' + ') })})`}
+                </li>
+              );
+            })}</ul>
           </div>
         ))}
         {shopping.manual.length > 0 && (
           <div className="print-group">
             <h3>{t('extra')}</h3>
-            <ul>{shopping.manual.map((m) => <li key={m.id}>☐ {m.text}</li>)}</ul>
+            <ul>{shopping.manual.map((m) => <li key={m.id} className={m.checked ? 'checked' : ''}>{m.checked ? '☑' : '☐'} {m.text}</li>)}</ul>
           </div>
         )}
       </div>

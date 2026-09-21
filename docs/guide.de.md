@@ -21,6 +21,7 @@ Der Bildschirm hat drei Spalten. Auf dem Handy werden daraus die Tabs **Rezepte 
 - **Verschieben:** Ein geplantes Gericht in ein anderes Feld ziehen.
 - **Portionen:** Mit **− / +** unter dem Gericht legst du fest, für wie viele Personen gekocht wird. Die Einkaufsliste passt sich sofort an. Unter 1 geht es auf eine halbe Portion.
 - **Entfernen:** Das **×** rechts am Gericht.
+- **🔒 Nur ansehen:** Die Schlosstaste in der Kopfzeile sperrt den Plan: Ziehen ist aus, die Tasten − / + / × / + sind ausgeblendet. So verrutscht beim Scrollen am Telefon kein Gericht mehr; ein Tippen schaltet um, die Wahl wird gemerkt. Rezepte ansehen und die Einkaufsliste abhaken geht weiterhin.
 - **Rezept ansehen:** Auf den Namen klicken – Zutaten, Zubereitung und Nährwerte pro Portion erscheinen. Das − / + in diesem Fenster skaliert nur die dort angezeigten Mengen, nicht den Plan.
 - **Tagessumme:** Die Zeile `kcal · g P` unter dem Tagesnamen zeigt, was eine Person mit je einer Portion aller Gerichte des Tages bekommt (unabhängig von der eingestellten Portionenzahl).
 
@@ -34,7 +35,14 @@ Der Bildschirm hat drei Spalten. Auf dem Handy werden daraus die Tabs **Rezepte 
 
 ## Einkaufsliste
 
-- Kommt eine Zutat in mehreren Rezepten vor, wird sie zu einer Zeile zusammengefasst. Gramm/Kilo und ml/Liter werden umgerechnet; nicht umrechenbare Einheiten stehen nebeneinander (`30 g + 2 EL`).
+- **Abteilung / Gericht / Tag** gruppieren die Liste auf drei Arten:
+  - *Abteilung* – der Weg durch den Laden: Obst & Gemüse, Milchprodukte, Gewürze… Jede Zutat einmal, mit der Wochenmenge.
+  - *Gericht* – jedes Gericht mit seinen Zutaten unter eigener Überschrift; darunter steht, wann es gekocht wird.
+  - *Tag* – Montag bis Sonntag der Reihe nach, mit dem, was an dem Tag gebraucht wird.
+  - In der Gericht- und Tagesansicht ist die Menge der Anteil dieser Gruppe: 500 g Heidelbeeren pro Woche stehen am Montag mit 250 g und am Donnerstag mit 250 g.
+  - **Alle drei sind derselbe Einkauf, Häkchen ziehen mengenweise ab.** Eine Zeile abzuhaken legt den Anteil der Mahlzeiten, die sie abdeckt, in den Korb. In der Abteilungsansicht abgehakt, ist die Zutat an jedem Tag und in jedem Gericht abgehakt. Umgekehrt ebenso: Hakt man von 1 kg Tomaten der Woche die 260 g vom Dienstag ab, zeigt die Abteilungszeile den Rest — ~~1 kg~~ **740 g** — mit halb gefülltem Kästchen. Noch einmal tippen, und der Rest gilt als gekauft.
+  - Die gewählte Gruppierung wird gemerkt, das PDF folgt ihr.
+- Kommt eine Zutat in mehreren Rezepten vor, wird sie (in der Abteilungsansicht) zu einer Zeile zusammengefasst. Gramm/Kilo und ml/Liter werden umgerechnet; nicht umrechenbare Einheiten stehen nebeneinander (`30 g + 2 EL`).
 - Zutaten ohne Menge („nach Geschmack“) erscheinen nur mit Namen.
 - **Kästchen:** Beim Einkaufen abhaken. Der Zähler oben zeigt den Fortschritt.
 - **⋯-Menü:**
@@ -64,4 +72,6 @@ Das Profil wählst du oben rechts; mit **⚙** lassen sich Profile anlegen, umbe
 
 ## PDF
 
-**PDF / Drucken** erstellt eine A4-Seite mit Wochenplan und Einkaufsliste; im Druckdialog „Als PDF speichern“ wählen. Grundzutaten und „zu Hause vorhandene“ Zutaten werden ausgelassen.
+**PDF / Drucken** erstellt eine A4-Seite mit Wochenplan und Einkaufsliste; im Druckdialog „Als PDF speichern“ wählen. Grundzutaten und „zu Hause vorhandene“ Zutaten werden ausgelassen. Die Einkaufsliste wird so gedruckt, wie sie am Bildschirm gruppiert ist (Abteilung / Gericht / Tag).
+
+Am Telefon druckt die Schaltfläche nicht direkt, sondern **öffnet eine Vorschauseite in einem neuen Tab**; gespeichert wird über **PDF / Drucken** oben auf dieser Seite. Grund ist iOS: Eine vom Home-Bildschirm gestartete Web-App bekommt keinen Druckdialog. Wer die App über das Home-Symbol öffnet, findet auf der Vorschauseite die Adresse — diese in **Safari** öffnen, dort funktioniert **Teilen ⬆︎ → Drucken**.

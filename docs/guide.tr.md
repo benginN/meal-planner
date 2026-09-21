@@ -21,6 +21,7 @@ Başlıktaki dil menüsü her şeyi Türkçe, English ve Deutsch arasında deği
 - **Taşımak:** Plandaki yemeği tutup başka bir kutuya bırak.
 - **Porsiyon:** Yemeğin altındaki **− / +** kaç kişilik pişeceğini belirler. Alışveriş listesi anında güncellenir. 1'in altına inince yarım porsiyona düşer.
 - **Çıkarmak:** Yemeğin sağındaki **×**.
+- **🔒 Salt görüntüleme:** Başlıktaki kilit düğmesi planı kilitler: sürükleme kapanır, − / + / × / + düğmeleri gizlenir. Telefonda kaydırırken yemeklerin yerinden oynamasını böyle engellersin; tek dokunuşla açılıp kapanır ve seçim hatırlanır. Kilitliyken tarife bakmak ve alışveriş listesini işaretlemek çalışmaya devam eder.
 - **Tarife bakmak:** Yemeğin adına tıkla; malzemeler, yapılışı ve porsiyon başına besin değerleri açılır. Oradaki − / + sadece o pencerede miktarları ölçekler, planı değiştirmez.
 - **Günlük toplam:** Gün adının altındaki `kcal · g P` satırı, o günün her yemeğinden birer porsiyon yiyen bir kişinin alacağı kalori ve proteindir (porsiyon sayısından etkilenmez).
 
@@ -34,7 +35,14 @@ Başlıktaki dil menüsü her şeyi Türkçe, English ve Deutsch arasında deği
 
 ## Alışveriş listesi
 
-- Aynı malzeme farklı tariflerde geçiyorsa tek satırda toplanır. Gram/kilo ve ml/litre birbirine çevrilir; çevrilemeyenler yan yana yazılır (`30 g + 2 yemek kaşığı`).
+- **Reyon / Yemek / Gün** düğmeleri listeyi üç ayrı şekilde gruplar:
+  - *Reyon* – markette gezme sırası: sebze-meyve, süt ürünleri, baharat… Her malzeme haftalık toplamıyla tek satırda.
+  - *Yemek* – her yemek kendi başlığı altında, o yemeğin malzemeleriyle. Başlığın altında hangi gün ve öğünde pişeceği yazar.
+  - *Gün* – Pazartesi'den Pazar'a sırayla, o gün ne lazımsa.
+  - Yemek ve Gün görünümünde miktar o grubun payıdır: haftada 500 g yaban mersini gerekiyorsa Pazartesi'de 250 g, Perşembe'de 250 g yazar.
+  - **Üçü aynı sepettir, işaretler miktarca birbirinden düşer.** Bir satırı işaretlemek, o satırın kapsadığı öğünlerin payını sepete atar. Reyondan işaretlersen o malzeme her günde ve her yemekte işaretli olur. Tersi de geçerli: haftalık 1 kg domatesin 260 g'lık Salı payını işaretlersen reyon satırı ~~1 kg~~ **740 g** diye kalanı gösterir ve kutusu yarım dolar. Bir daha dokunursan kalanı da almış sayılır.
+  - Seçtiğin görünüm hatırlanır ve PDF de ona göre çıkar.
+- Aynı malzeme farklı tariflerde geçiyorsa (Reyon görünümünde) tek satırda toplanır. Gram/kilo ve ml/litre birbirine çevrilir; çevrilemeyenler yan yana yazılır (`30 g + 2 yemek kaşığı`).
 - Miktarı olmayan ("göz kararı") malzemeler sadece adıyla görünür.
 - **Kutucuk:** Aldıkça işaretle. Üstteki sayaç kaç kalemin bittiğini gösterir.
 - **⋯ menüsü:**
@@ -64,4 +72,6 @@ Sağ üstteki menüden profil seçilir, **⚙** ile profil eklenir, adı/rengi d
 
 ## PDF
 
-**PDF / Yazdır** butonu haftalık plan tablosu + alışveriş listesinden oluşan A4 sayfayı hazırlar; yazdırma penceresinde hedef olarak "PDF olarak kaydet" seç. Temel malzemeler ve "evde var" dediklerin PDF'e girmez.
+**PDF / Yazdır** butonu haftalık plan tablosu + alışveriş listesinden oluşan A4 sayfayı hazırlar; yazdırma penceresinde hedef olarak "PDF olarak kaydet" seç. Temel malzemeler ve "evde var" dediklerin PDF'e girmez. Alışveriş listesi ekranda hangi görünümdeyse (reyon / yemek / gün) PDF de öyle çıkar.
+
+Telefonda buton doğrudan yazdırmaz, **önizleme sayfasını yeni sekmede açar**; sayfanın üstündeki **PDF / Yazdır** ile kaydedersin. Sebebi iOS: ana ekrana eklenmiş bir web uygulamasında yazdırma penceresi hiç açılmaz. Uygulamayı ana ekran simgesinden açıyorsan önizleme sayfası sana adresi gösterir — onu **Safari'de** aç, orada **Paylaş ⬆︎ → Yazdır** çalışır.

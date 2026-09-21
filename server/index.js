@@ -7,7 +7,7 @@ import { db, transaction } from './db.js';
 import {
   listRecipes, getRecipe, createRecipe, updateRecipe, deleteRecipe, importRecipes, loadSeed,
 } from './recipes.js';
-import { getPlan, buildShoppingList, setShoppingState } from './shopping.js';
+import { getPlan, buildShoppingList, setBought, setExcluded, remainingAmounts } from './shopping.js';
 import { CATEGORIES, SLOTS, UNIT_LABELS as GLANCE_UNITS, formatAmount, weekStartOf, addDays, isoDate, normalizeName } from '../shared/format.js';
 
 loadSeed(fileURLToPath(new URL('../seed/recipes.json', import.meta.url)));
@@ -65,6 +65,52 @@ api.delete('/recipes/:id', (c) => {
   return c.json({ ok: true });
 });
 api.post('/import', async (c) => c.json({ added: importRecipes(await c.req.json()) }));
+
+// --- Koleksiyonlar (kullanıcının kendi rafları: "Sevdiklerim", "Hızlı"…)
+// Tarifin kategorisi "ne yemeği" olduğunu, etiketler "neyden yapıldığını" söyler; koleksiyon ise
+// tamamen kullanıcının kendi ayrımıdır, o yüzden ayrı tabloda durur ve seed'e karışmaz.
+const collectionName = (raw) => {
+  const name = String(raw || '').trim().replace(/\s+/g, ' ');
+  if (!name) throw new Error('Collection name is required');
+  return name;
+};
+
+api.get('/collections', (c) => {
+  const rows = db.prepare('SELECT * FROM collections ORDER BY position, id').all();
+  const links = db.prepare('SELECT collection_id, recipe_id FROM recipe_collections').all();
+  return c.json(rows.map((r) => ({ ...r, recipe_ids: links.filter((l) => l.collection_id === r.id).map((l) => l.recipe_id) })));
+});
+
+api.post('/collections', async (c) => {
+  const { name } = await c.req.json();
+  const next = db.prepare('SELECT COALESCE(MAX(position), 0) + 1 AS n FROM collections').get().n;
+  const res = db.prepare('INSERT INTO collections (name, position) VALUES (?, ?)').run(collectionName(name), next);
+  return c.json({ id: Number(res.lastInsertRowid) }, 201);
+});
+
+api.put('/collections/:id', async (c) => {
+  const { name } = await c.req.json();
+  db.prepare('UPDATE collections SET name = ? WHERE id = ?').run(collectionName(name), Number(c.req.param('id')));
+  return c.json({ ok: true });
+});
+
+api.delete('/collections/:id', (c) => {
+  // Only the shelf goes; the recipes on it stay (ON DELETE CASCADE clears the links).
+  db.prepare('DELETE FROM collections WHERE id = ?').run(Number(c.req.param('id')));
+  return c.json({ ok: true });
+});
+
+api.put('/collections/:id/recipes/:recipeId', (c) => {
+  db.prepare('INSERT OR IGNORE INTO recipe_collections (collection_id, recipe_id) VALUES (?, ?)')
+    .run(Number(c.req.param('id')), Number(c.req.param('recipeId')));
+  return c.json({ ok: true });
+});
+
+api.delete('/collections/:id/recipes/:recipeId', (c) => {
+  db.prepare('DELETE FROM recipe_collections WHERE collection_id = ? AND recipe_id = ?')
+    .run(Number(c.req.param('id')), Number(c.req.param('recipeId')));
+  return c.json({ ok: true });
+});
 
 // --- Ingredient catalogue
 api.get('/ingredients', (c) => c.json(db.prepare('SELECT * FROM ingredients ORDER BY name').all()));
@@ -160,7 +206,10 @@ api.get('/shopping', (c) => {
 api.put('/shopping/state', async (c) => {
   const body = await c.req.json();
   const { profileId, week } = scope(c, body);
-  setShoppingState(profileId, week, Number(body.ingredient_id), body);
+  const ingredientId = Number(body.ingredient_id);
+  // entry_ids names the planned meals the ticked row stands for; excluded applies to the whole week.
+  if (Array.isArray(body.entry_ids)) setBought(profileId, week, ingredientId, body.entry_ids, !!body.bought);
+  if ('excluded' in body) setExcluded(profileId, week, ingredientId, body.excluded);
   return c.json({ ok: true });
 });
 api.post('/shopping/manual', async (c) => {
@@ -217,10 +266,16 @@ api.get('/glance', (c) => {
     shopping: {
       total: visible.length,
       remaining: remaining.length,
+      // A partly bought ingredient is listed with what is still missing, not with the week's total.
       items: remaining.slice(0, 15).map((i) =>
         i.text
           ? i.text
-          : [i.amounts.map((a) => formatAmount(a.amount, a.unit, { unitLabel, decimal: lang === 'en' ? '.' : ',' })).join(' + '), pick(i, 'name')]
+          : [
+              remainingAmounts(i)
+                .map((a) => formatAmount(a.amount, a.unit, { unitLabel, decimal: lang === 'en' ? '.' : ',' }))
+                .join(' + '),
+              pick(i, 'name'),
+            ]
               .filter(Boolean)
               .join(' ')
       ),

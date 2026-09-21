@@ -21,6 +21,7 @@ The language menu in the header switches everything between Türkçe, English an
 - **Move:** Drag a planned dish to another box.
 - **Servings:** The **− / +** under a dish sets how many people you cook for. The shopping list updates immediately. Below 1 it drops to half a serving.
 - **Remove:** The **×** on the right of the dish.
+- **🔒 View only:** The lock button in the header locks the plan: dragging is off and the − / + / × / + buttons are hidden. That is how you stop meals from being nudged out of place while scrolling on a phone; one tap toggles it and the choice is remembered. Opening a recipe and ticking the shopping list still work while locked.
 - **Open a recipe:** Click the dish name to see ingredients, method and nutrition per serving. The − / + in that window only scales the amounts shown there; it does not change the plan.
 - **Daily total:** The `kcal · g P` line under the day name is what one person gets from one serving of every dish that day (it does not depend on the servings you set).
 
@@ -34,7 +35,14 @@ The language menu in the header switches everything between Türkçe, English an
 
 ## Shopping list
 
-- An ingredient used by several recipes is merged into one row. Grams/kilos and ml/litres are converted; units that cannot be converted are shown side by side (`30 g + 2 tbsp`).
+- **Aisle / Dish / Day** group the list three ways:
+  - *Aisle* – the order you walk the shop: fruit & veg, dairy, spices… Every ingredient once, with its weekly total.
+  - *Dish* – each dish under its own heading with what it needs; the subheading says when it is cooked.
+  - *Day* – Monday through Sunday in order, with what that day needs.
+  - In the Dish and Day views the amount is that group's share: 500 g of blueberries for the week reads 250 g on Monday and 250 g on Thursday.
+  - **All three are the same basket, and ticks subtract by amount.** Ticking a row puts the share of the meals it covers into the basket. Tick it in the Aisle view and the ingredient is ticked on every day and in every dish. The other way round too: tick Tuesday's 260 g of the week's 1 kg of tomatoes and the aisle row shows what is left — ~~1 kg~~ **740 g** — with a half-filled box. Tap it again and the rest counts as bought.
+  - Your choice of grouping is remembered, and the PDF follows it.
+- An ingredient used by several recipes is merged into one row (in the Aisle view). Grams/kilos and ml/litres are converted; units that cannot be converted are shown side by side (`30 g + 2 tbsp`).
 - Ingredients without an amount ("to taste") appear by name only.
 - **Checkbox:** Tick things off as you buy them. The counter at the top shows progress.
 - **⋯ menu:**
@@ -64,4 +72,6 @@ Choose a profile in the top-right menu; **⚙** adds, renames, recolours or dele
 
 ## PDF
 
-**PDF / Print** prepares an A4 page with the weekly plan table and the shopping list; choose "Save as PDF" in the print dialog. Staples and "at home" items are left out.
+**PDF / Print** prepares an A4 page with the weekly plan table and the shopping list; choose "Save as PDF" in the print dialog. Staples and "at home" items are left out. The shopping list is printed in whichever grouping is on screen (aisle / dish / day).
+
+On a phone the button does not print directly: it **opens a preview page in a new tab**, and you save from the **PDF / Print** button at the top of it. The reason is iOS: a web app added to the home screen never gets a print dialog. If you open the app from its home-screen icon, the preview page shows you its address — open that in **Safari**, where **Share ⬆︎ → Print** works.

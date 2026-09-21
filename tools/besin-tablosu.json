@@ -1,0 +1,1132 @@
+{
+  "aciklama": "Malzeme başına 100 g (sıvılarda 100 ml) besin değerleri; gram: o malzemeye özel birim->gram karşılıkları.",
+  "varsayilan_gram": {
+    "g": 1.0,
+    "ml": 1.0,
+    "yemek kaşığı": 15.0,
+    "tatlı kaşığı": 10.0,
+    "çay kaşığı": 5.0,
+    "diş": 3.0,
+    "dal": 15.0,
+    "yaprak": 0.5,
+    "dilim": 40.0,
+    "adet": 100.0,
+    "paket": 250.0
+  },
+  "baharat_gram": {
+    "çay kaşığı": 2.0,
+    "yemek kaşığı": 7.0,
+    "tatlı kaşığı": 4.0
+  },
+  "malzemeler": {
+    "acı biber sosu": {
+      "kcal": 20,
+      "protein_g": 1.0,
+      "carbs_g": 4.0,
+      "fat_g": 0.5,
+      "gram": {
+        "çay kaşığı": 5
+      }
+    },
+    "acılı bal (hot honey)": {
+      "kcal": 300,
+      "protein_g": 0.3,
+      "carbs_g": 80.0,
+      "fat_g": 0,
+      "gram": {
+        "yemek kaşığı": 21
+      }
+    },
+    "avokado": {
+      "kcal": 160,
+      "protein_g": 2.0,
+      "carbs_g": 9.0,
+      "fat_g": 15.0,
+      "gram": {
+        "adet": 150
+      }
+    },
+    "bal": {
+      "kcal": 300,
+      "protein_g": 0.3,
+      "carbs_g": 82.0,
+      "fat_g": 0,
+      "gram": {
+        "yemek kaşığı": 21,
+        "çay kaşığı": 7
+      }
+    },
+    "balsamik sirke": {
+      "kcal": 90,
+      "protein_g": 0.5,
+      "carbs_g": 17.0,
+      "fat_g": 0,
+      "gram": {
+        "tatlı kaşığı": 10
+      }
+    },
+    "beş baharat tozu": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "biftek": {
+      "kcal": 150,
+      "protein_g": 22.0,
+      "carbs_g": 0,
+      "fat_g": 7.0
+    },
+    "brokoli": {
+      "kcal": 34,
+      "protein_g": 2.8,
+      "carbs_g": 7.0,
+      "fat_g": 0.4,
+      "gram": {
+        "adet": 350
+      }
+    },
+    "burger sosu": {
+      "kcal": 350,
+      "protein_g": 1.0,
+      "carbs_g": 15.0,
+      "fat_g": 30.0,
+      "gram": {
+        "yemek kaşığı": 15
+      }
+    },
+    "butter chicken sosu (hazır)": {
+      "kcal": 120,
+      "protein_g": 2.0,
+      "carbs_g": 8.0,
+      "fat_g": 9.0
+    },
+    "cacık (tzatziki)": {
+      "kcal": 100,
+      "protein_g": 3.0,
+      "carbs_g": 3.0,
+      "fat_g": 8.0
+    },
+    "cajun baharat karışımı": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "cannellini fasulyesi (konserve)": {
+      "kcal": 90,
+      "protein_g": 7.0,
+      "carbs_g": 13.0,
+      "fat_g": 0.6
+    },
+    "cheddar peyniri": {
+      "kcal": 400,
+      "protein_g": 25.0,
+      "carbs_g": 1.3,
+      "fat_g": 33.0
+    },
+    "dana kuşbaşı": {
+      "kcal": 160,
+      "protein_g": 21.0,
+      "carbs_g": 0,
+      "fat_g": 8.0
+    },
+    "dana kıyma": {
+      "kcal": 215,
+      "protein_g": 19.0,
+      "carbs_g": 0,
+      "fat_g": 15.0
+    },
+    "dijon hardalı": {
+      "kcal": 110,
+      "protein_g": 6.0,
+      "carbs_g": 4.0,
+      "fat_g": 7.0,
+      "gram": {
+        "yemek kaşığı": 15,
+        "çay kaşığı": 5
+      }
+    },
+    "dolmalık biber": {
+      "kcal": 30,
+      "protein_g": 1.0,
+      "carbs_g": 6.0,
+      "fat_g": 0.3,
+      "gram": {
+        "adet": 150
+      }
+    },
+    "domates": {
+      "kcal": 18,
+      "protein_g": 0.9,
+      "carbs_g": 3.9,
+      "fat_g": 0.2
+    },
+    "domates salçası": {
+      "kcal": 80,
+      "protein_g": 4.0,
+      "carbs_g": 16.0,
+      "fat_g": 0.5,
+      "gram": {
+        "yemek kaşığı": 18
+      }
+    },
+    "doğranmış domates (konserve)": {
+      "kcal": 22,
+      "protein_g": 1.2,
+      "carbs_g": 4.0,
+      "fat_g": 0.2
+    },
+    "edamame": {
+      "kcal": 120,
+      "protein_g": 11.0,
+      "carbs_g": 9.0,
+      "fat_g": 5.0
+    },
+    "elma": {
+      "kcal": 52,
+      "protein_g": 0.3,
+      "carbs_g": 14.0,
+      "fat_g": 0.2,
+      "gram": {
+        "adet": 180
+      }
+    },
+    "esmer şeker": {
+      "kcal": 380,
+      "protein_g": 0,
+      "carbs_g": 98.0,
+      "fat_g": 0
+    },
+    "et suyu": {
+      "kcal": 5,
+      "protein_g": 0.5,
+      "carbs_g": 0.5,
+      "fat_g": 0.1
+    },
+    "fajita baharat karışımı": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "füme toz biber": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "fıstık ezmesi": {
+      "kcal": 600,
+      "protein_g": 25.0,
+      "carbs_g": 12.0,
+      "fat_g": 50.0
+    },
+    "galeta unu": {
+      "kcal": 370,
+      "protein_g": 12.0,
+      "carbs_g": 70.0,
+      "fat_g": 3.0
+    },
+    "garam masala": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "gnocchi": {
+      "kcal": 160,
+      "protein_g": 4.0,
+      "carbs_g": 33.0,
+      "fat_g": 0.7
+    },
+    "gochujang": {
+      "kcal": 220,
+      "protein_g": 5.0,
+      "carbs_g": 45.0,
+      "fat_g": 1.0
+    },
+    "hamburger ekmeği": {
+      "kcal": 280,
+      "protein_g": 9.0,
+      "carbs_g": 50.0,
+      "fat_g": 4.0,
+      "gram": {
+        "adet": 60
+      }
+    },
+    "havuç": {
+      "kcal": 41,
+      "protein_g": 0.9,
+      "carbs_g": 10.0,
+      "fat_g": 0.2,
+      "gram": {
+        "adet": 80
+      }
+    },
+    "hellim": {
+      "kcal": 320,
+      "protein_g": 22.0,
+      "carbs_g": 2.0,
+      "fat_g": 25.0
+    },
+    "humus": {
+      "kcal": 240,
+      "protein_g": 7.0,
+      "carbs_g": 15.0,
+      "fat_g": 17.0
+    },
+    "ince biftek": {
+      "kcal": 150,
+      "protein_g": 22.0,
+      "carbs_g": 0,
+      "fat_g": 7.0
+    },
+    "istiridye sosu": {
+      "kcal": 110,
+      "protein_g": 2.0,
+      "carbs_g": 25.0,
+      "fat_g": 0,
+      "gram": {
+        "yemek kaşığı": 18
+      }
+    },
+    "kabak": {
+      "kcal": 17,
+      "protein_g": 1.2,
+      "carbs_g": 3.0,
+      "fat_g": 0.3
+    },
+    "karabiber": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "karides": {
+      "kcal": 85,
+      "protein_g": 20.0,
+      "carbs_g": 0.2,
+      "fat_g": 0.5
+    },
+    "kekik": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "kimyon": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "kiraz domates": {
+      "kcal": 20,
+      "protein_g": 0.9,
+      "carbs_g": 4.0,
+      "fat_g": 0.2
+    },
+    "koyu soya sosu": {
+      "kcal": 80,
+      "protein_g": 5.0,
+      "carbs_g": 12.0,
+      "fat_g": 0,
+      "gram": {
+        "yemek kaşığı": 15
+      }
+    },
+    "koçan mısır": {
+      "kcal": 96,
+      "protein_g": 3.4,
+      "carbs_g": 21.0,
+      "fat_g": 1.5,
+      "gram": {
+        "adet": 120
+      }
+    },
+    "krem peynir": {
+      "kcal": 330,
+      "protein_g": 6.0,
+      "carbs_g": 4.0,
+      "fat_g": 33.0
+    },
+    "kruton": {
+      "kcal": 400,
+      "protein_g": 10.0,
+      "carbs_g": 65.0,
+      "fat_g": 10.0
+    },
+    "kuru nane": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "köri sosu (hazır)": {
+      "kcal": 90,
+      "protein_g": 2.0,
+      "carbs_g": 9.0,
+      "fat_g": 5.0
+    },
+    "kırmızı acı biber": {
+      "kcal": 40,
+      "protein_g": 2.0,
+      "carbs_g": 9.0,
+      "fat_g": 0.4,
+      "gram": {
+        "adet": 10
+      }
+    },
+    "kırmızı barbunya (konserve)": {
+      "kcal": 95,
+      "protein_g": 7.0,
+      "carbs_g": 14.0,
+      "fat_g": 0.5
+    },
+    "kırmızı dolmalık biber": {
+      "kcal": 30,
+      "protein_g": 1.0,
+      "carbs_g": 6.0,
+      "fat_g": 0.3,
+      "gram": {
+        "adet": 150
+      }
+    },
+    "kırmızı soğan": {
+      "kcal": 40,
+      "protein_g": 1.1,
+      "carbs_g": 9.0,
+      "fat_g": 0.1,
+      "gram": {
+        "adet": 110
+      }
+    },
+    "kırmızı şarap sirkesi": {
+      "kcal": 20,
+      "protein_g": 0,
+      "carbs_g": 0.5,
+      "fat_g": 0,
+      "gram": {
+        "yemek kaşığı": 15
+      }
+    },
+    "light crème fraîche": {
+      "kcal": 165,
+      "protein_g": 3.0,
+      "carbs_g": 4.0,
+      "fat_g": 15.0
+    },
+    "light krem peynir": {
+      "kcal": 150,
+      "protein_g": 10.0,
+      "carbs_g": 5.0,
+      "fat_g": 10.0
+    },
+    "light mayonez": {
+      "kcal": 300,
+      "protein_g": 1.0,
+      "carbs_g": 8.0,
+      "fat_g": 28.0,
+      "gram": {
+        "yemek kaşığı": 13
+      }
+    },
+    "light mozzarella": {
+      "kcal": 230,
+      "protein_g": 26.0,
+      "carbs_g": 2.0,
+      "fat_g": 13.0
+    },
+    "light sezar sosu": {
+      "kcal": 150,
+      "protein_g": 2.0,
+      "carbs_g": 10.0,
+      "fat_g": 11.0
+    },
+    "limon": {
+      "kcal": 22,
+      "protein_g": 0.4,
+      "carbs_g": 7.0,
+      "fat_g": 0.2,
+      "gram": {
+        "adet": 40
+      }
+    },
+    "mantar": {
+      "kcal": 22,
+      "protein_g": 3.0,
+      "carbs_g": 3.0,
+      "fat_g": 0.3
+    },
+    "marul / salata yeşilliği": {
+      "kcal": 15,
+      "protein_g": 1.4,
+      "carbs_g": 2.0,
+      "fat_g": 0.2
+    },
+    "maydanoz": {
+      "kcal": 36,
+      "protein_g": 3.0,
+      "carbs_g": 6.0,
+      "fat_g": 0.8
+    },
+    "mayonez": {
+      "kcal": 680,
+      "protein_g": 1.0,
+      "carbs_g": 1.5,
+      "fat_g": 75.0,
+      "gram": {
+        "yemek kaşığı": 13
+      }
+    },
+    "meksika fasulyesi (konserve)": {
+      "kcal": 90,
+      "protein_g": 6.0,
+      "carbs_g": 14.0,
+      "fat_g": 0.5
+    },
+    "mikrodalga pilavı": {
+      "kcal": 145,
+      "protein_g": 3.0,
+      "carbs_g": 28.0,
+      "fat_g": 2.3,
+      "gram": {
+        "paket": 250
+      }
+    },
+    "misket limonu": {
+      "kcal": 25,
+      "protein_g": 0.4,
+      "carbs_g": 8.0,
+      "fat_g": 0.2,
+      "gram": {
+        "adet": 30
+      }
+    },
+    "morina fileto": {
+      "kcal": 82,
+      "protein_g": 18.0,
+      "carbs_g": 0,
+      "fat_g": 0.7
+    },
+    "mısır (konserve)": {
+      "kcal": 85,
+      "protein_g": 3.0,
+      "carbs_g": 16.0,
+      "fat_g": 1.0
+    },
+    "mısır nişastası": {
+      "kcal": 380,
+      "protein_g": 0.3,
+      "carbs_g": 91.0,
+      "fat_g": 0,
+      "gram": {
+        "yemek kaşığı": 8
+      }
+    },
+    "nashville hot sos": {
+      "kcal": 380,
+      "protein_g": 0.5,
+      "carbs_g": 6.0,
+      "fat_g": 40.0
+    },
+    "noodle": {
+      "kcal": 350,
+      "protein_g": 12.0,
+      "carbs_g": 70.0,
+      "fat_g": 1.5
+    },
+    "pak choi": {
+      "kcal": 13,
+      "protein_g": 1.5,
+      "carbs_g": 2.2,
+      "fat_g": 0.2,
+      "gram": {
+        "adet": 150
+      }
+    },
+    "panko": {
+      "kcal": 370,
+      "protein_g": 12.0,
+      "carbs_g": 72.0,
+      "fat_g": 2.0
+    },
+    "parmesan": {
+      "kcal": 400,
+      "protein_g": 33.0,
+      "carbs_g": 3.0,
+      "fat_g": 28.0
+    },
+    "patates": {
+      "kcal": 77,
+      "protein_g": 2.0,
+      "carbs_g": 17.0,
+      "fat_g": 0.1
+    },
+    "patates kızartması (dondurulmuş)": {
+      "kcal": 160,
+      "protein_g": 2.5,
+      "carbs_g": 23.0,
+      "fat_g": 6.0
+    },
+    "patlıcan": {
+      "kcal": 25,
+      "protein_g": 1.0,
+      "carbs_g": 6.0,
+      "fat_g": 0.2
+    },
+    "pide ekmeği (fladenbrot)": {
+      "kcal": 270,
+      "protein_g": 8.0,
+      "carbs_g": 50.0,
+      "fat_g": 3.0,
+      "gram": {
+        "adet": 100
+      }
+    },
+    "piri piri sosu": {
+      "kcal": 80,
+      "protein_g": 1.0,
+      "carbs_g": 8.0,
+      "fat_g": 5.0
+    },
+    "pirinç": {
+      "kcal": 350,
+      "protein_g": 7.0,
+      "carbs_g": 78.0,
+      "fat_g": 1.0
+    },
+    "pirinç patlağı": {
+      "kcal": 385,
+      "protein_g": 8.0,
+      "carbs_g": 80.0,
+      "fat_g": 3.0,
+      "gram": {
+        "adet": 9
+      }
+    },
+    "pişmiş jumbo karides": {
+      "kcal": 95,
+      "protein_g": 21.0,
+      "carbs_g": 0.2,
+      "fat_g": 1.0
+    },
+    "protein tozu": {
+      "kcal": 380,
+      "protein_g": 80.0,
+      "carbs_g": 6.0,
+      "fat_g": 5.0
+    },
+    "proteinli makarna": {
+      "kcal": 350,
+      "protein_g": 25.0,
+      "carbs_g": 50.0,
+      "fat_g": 3.0
+    },
+    "pul biber": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "rendelenmiş mozzarella": {
+      "kcal": 300,
+      "protein_g": 22.0,
+      "carbs_g": 2.5,
+      "fat_g": 22.0
+    },
+    "rogan josh sosu (hazır)": {
+      "kcal": 90,
+      "protein_g": 2.0,
+      "carbs_g": 9.0,
+      "fat_g": 5.0
+    },
+    "salatalık": {
+      "kcal": 15,
+      "protein_g": 0.7,
+      "carbs_g": 3.0,
+      "fat_g": 0.1
+    },
+    "salatalık turşusu": {
+      "kcal": 12,
+      "protein_g": 0.6,
+      "carbs_g": 2.0,
+      "fat_g": 0.1
+    },
+    "salsa sos": {
+      "kcal": 35,
+      "protein_g": 1.5,
+      "carbs_g": 7.0,
+      "fat_g": 0.2
+    },
+    "sarımsak": {
+      "kcal": 149,
+      "protein_g": 6.4,
+      "carbs_g": 33.0,
+      "fat_g": 0.5,
+      "gram": {
+        "diş": 3
+      }
+    },
+    "sarımsak tozu": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "siyah fasulye (konserve)": {
+      "kcal": 90,
+      "protein_g": 6.0,
+      "carbs_g": 15.0,
+      "fat_g": 0.5
+    },
+    "skyr": {
+      "kcal": 63,
+      "protein_g": 11.0,
+      "carbs_g": 4.0,
+      "fat_g": 0.2
+    },
+    "somon fileto": {
+      "kcal": 200,
+      "protein_g": 20.0,
+      "carbs_g": 0,
+      "fat_g": 13.0
+    },
+    "soya filizi": {
+      "kcal": 30,
+      "protein_g": 3.0,
+      "carbs_g": 4.0,
+      "fat_g": 0.2
+    },
+    "soya sosu": {
+      "kcal": 60,
+      "protein_g": 6.0,
+      "carbs_g": 6.0,
+      "fat_g": 0,
+      "gram": {
+        "yemek kaşığı": 15
+      }
+    },
+    "soğan": {
+      "kcal": 40,
+      "protein_g": 1.1,
+      "carbs_g": 9.0,
+      "fat_g": 0.1,
+      "gram": {
+        "adet": 110
+      }
+    },
+    "spagetti": {
+      "kcal": 350,
+      "protein_g": 12.5,
+      "carbs_g": 70.0,
+      "fat_g": 1.5
+    },
+    "sriracha": {
+      "kcal": 100,
+      "protein_g": 2.0,
+      "carbs_g": 19.0,
+      "fat_g": 1.0,
+      "gram": {
+        "yemek kaşığı": 17,
+        "tatlı kaşığı": 10
+      }
+    },
+    "su": {
+      "kcal": 0,
+      "protein_g": 0,
+      "carbs_g": 0,
+      "fat_g": 0
+    },
+    "susam": {
+      "kcal": 570,
+      "protein_g": 17.0,
+      "carbs_g": 23.0,
+      "fat_g": 50.0,
+      "gram": {
+        "çay kaşığı": 3
+      }
+    },
+    "susam yağı": {
+      "kcal": 900,
+      "protein_g": 0,
+      "carbs_g": 0,
+      "fat_g": 100.0,
+      "gram": {
+        "yemek kaşığı": 13,
+        "çay kaşığı": 4.5
+      }
+    },
+    "sweet chili sos": {
+      "kcal": 230,
+      "protein_g": 0.5,
+      "carbs_g": 56.0,
+      "fat_g": 0.2,
+      "gram": {
+        "yemek kaşığı": 20
+      }
+    },
+    "süzme yoğurt": {
+      "kcal": 73,
+      "protein_g": 9.0,
+      "carbs_g": 4.0,
+      "fat_g": 2.0
+    },
+    "sıvı yağ": {
+      "kcal": 900,
+      "protein_g": 0,
+      "carbs_g": 0,
+      "fat_g": 100.0,
+      "gram": {
+        "yemek kaşığı": 13,
+        "çay kaşığı": 4.5
+      }
+    },
+    "taco baharat karışımı": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "taco kabuğu": {
+      "kcal": 470,
+      "protein_g": 7.0,
+      "carbs_g": 60.0,
+      "fat_g": 22.0,
+      "gram": {
+        "adet": 13
+      }
+    },
+    "tam buğday ekmeği": {
+      "kcal": 240,
+      "protein_g": 9.0,
+      "carbs_g": 40.0,
+      "fat_g": 3.5,
+      "gram": {
+        "dilim": 40
+      }
+    },
+    "tarçın": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "tavuk but": {
+      "kcal": 145,
+      "protein_g": 19.0,
+      "carbs_g": 0,
+      "fat_g": 7.5,
+      "gram": {
+        "adet": 90
+      }
+    },
+    "tavuk göğsü": {
+      "kcal": 110,
+      "protein_g": 23.0,
+      "carbs_g": 0,
+      "fat_g": 1.8,
+      "gram": {
+        "adet": 165
+      }
+    },
+    "tavuk jambon": {
+      "kcal": 105,
+      "protein_g": 18.0,
+      "carbs_g": 1.5,
+      "fat_g": 3.0
+    },
+    "tavuk suyu": {
+      "kcal": 5,
+      "protein_g": 0.5,
+      "carbs_g": 0.5,
+      "fat_g": 0.1
+    },
+    "taze fasulye": {
+      "kcal": 31,
+      "protein_g": 1.8,
+      "carbs_g": 7.0,
+      "fat_g": 0.1
+    },
+    "taze fesleğen": {
+      "kcal": 23,
+      "protein_g": 3.0,
+      "carbs_g": 2.7,
+      "fat_g": 0.6,
+      "gram": {
+        "yaprak": 0.5
+      }
+    },
+    "taze kişniş": {
+      "kcal": 23,
+      "protein_g": 2.0,
+      "carbs_g": 4.0,
+      "fat_g": 0.5
+    },
+    "taze soğan": {
+      "kcal": 32,
+      "protein_g": 1.8,
+      "carbs_g": 7.0,
+      "fat_g": 0.2,
+      "gram": {
+        "dal": 15
+      }
+    },
+    "taze zencefil": {
+      "kcal": 80,
+      "protein_g": 1.8,
+      "carbs_g": 18.0,
+      "fat_g": 0.8
+    },
+    "teriyaki sosu": {
+      "kcal": 130,
+      "protein_g": 3.0,
+      "carbs_g": 29.0,
+      "fat_g": 0
+    },
+    "ton balığı (konserve)": {
+      "kcal": 110,
+      "protein_g": 24.0,
+      "carbs_g": 0,
+      "fat_g": 1.0
+    },
+    "tortilla": {
+      "kcal": 300,
+      "protein_g": 8.0,
+      "carbs_g": 48.0,
+      "fat_g": 7.0,
+      "gram": {
+        "adet": 50
+      }
+    },
+    "toz kırmızı biber": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "toz şeker": {
+      "kcal": 400,
+      "protein_g": 0,
+      "carbs_g": 100.0,
+      "fat_g": 0,
+      "gram": {
+        "çay kaşığı": 4
+      }
+    },
+    "tuz": {
+      "kcal": 0,
+      "protein_g": 0,
+      "carbs_g": 0,
+      "fat_g": 0
+    },
+    "udon noodle": {
+      "kcal": 130,
+      "protein_g": 4.0,
+      "carbs_g": 27.0,
+      "fat_g": 0.5
+    },
+    "un": {
+      "kcal": 340,
+      "protein_g": 10.0,
+      "carbs_g": 72.0,
+      "fat_g": 1.0
+    },
+    "vanilya özütü": {
+      "kcal": 290,
+      "protein_g": 0,
+      "carbs_g": 13.0,
+      "fat_g": 0,
+      "gram": {
+        "çay kaşığı": 4
+      }
+    },
+    "wok sebze karışımı": {
+      "kcal": 35,
+      "protein_g": 2.0,
+      "carbs_g": 5.0,
+      "fat_g": 0.3
+    },
+    "worcestershire sosu": {
+      "kcal": 80,
+      "protein_g": 0,
+      "carbs_g": 20.0,
+      "fat_g": 0,
+      "gram": {
+        "yemek kaşığı": 17
+      }
+    },
+    "yaban mersini": {
+      "kcal": 57,
+      "protein_g": 0.7,
+      "carbs_g": 14.0,
+      "fat_g": 0.3
+    },
+    "yer fıstığı": {
+      "kcal": 570,
+      "protein_g": 25.0,
+      "carbs_g": 16.0,
+      "fat_g": 48.0
+    },
+    "yeşil dolmalık biber": {
+      "kcal": 30,
+      "protein_g": 1.0,
+      "carbs_g": 6.0,
+      "fat_g": 0.3,
+      "gram": {
+        "adet": 150
+      }
+    },
+    "yoğurt": {
+      "kcal": 61,
+      "protein_g": 3.5,
+      "carbs_g": 4.7,
+      "fat_g": 3.3
+    },
+    "yumurta": {
+      "kcal": 143,
+      "protein_g": 12.6,
+      "carbs_g": 0.7,
+      "fat_g": 9.5,
+      "gram": {
+        "adet": 50
+      }
+    },
+    "yumurta akı": {
+      "kcal": 52,
+      "protein_g": 11.0,
+      "carbs_g": 0.7,
+      "fat_g": 0.2,
+      "gram": {
+        "adet": 33
+      }
+    },
+    "yumurtalı noodle": {
+      "kcal": 360,
+      "protein_g": 12.0,
+      "carbs_g": 68.0,
+      "fat_g": 3.5
+    },
+    "zencefil turşusu": {
+      "kcal": 50,
+      "protein_g": 0.2,
+      "carbs_g": 12.0,
+      "fat_g": 0.0
+    },
+    "zerdeçal": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "zeytinyağı": {
+      "kcal": 900,
+      "protein_g": 0,
+      "carbs_g": 0,
+      "fat_g": 100.0,
+      "gram": {
+        "yemek kaşığı": 13,
+        "çay kaşığı": 4.5
+      }
+    },
+    "şavurma baharat karışımı": {
+      "kcal": 300,
+      "protein_g": 11,
+      "carbs_g": 50,
+      "fat_g": 10,
+      "gram": {
+        "çay kaşığı": 2.0,
+        "yemek kaşığı": 7.0,
+        "tatlı kaşığı": 4.0
+      }
+    },
+    "chia tohumu": {
+      "kcal": 486,
+      "protein_g": 17.0,
+      "carbs_g": 42.0,
+      "fat_g": 31.0
+    },
+    "badem sütü": {
+      "kcal": 15,
+      "protein_g": 0.5,
+      "carbs_g": 0.6,
+      "fat_g": 1.2
+    }
+  }
+}
